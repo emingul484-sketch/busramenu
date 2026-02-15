@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Büşra Gözleme | Dijital Menü</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #d35400; 
+            --secondary: #2c3e50; 
+            --bg: #fdf2e9; 
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --badge-hot: #e74c3c; --badge-chef: #f1c40f; --badge-new: #9b59b6; --badge-veg: #27ae60;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            margin: 0; padding: 0;
+            padding-bottom: 140px;
+        }
+
+        /* --- HEADER --- */
+        .top-header { text-align: center; padding: 30px 20px 10px; }
+        .brand-name { font-size: 2rem; font-weight: 900; color: var(--primary); text-transform: uppercase; display: block; }
+        .sub-title { font-size: 0.9rem; color: var(--secondary); font-weight: 600; }
+
+        .logo-container { display: flex; justify-content: center; margin-bottom: 20px; }
+        .main-logo { width: 140px; height: 140px; border-radius: 50%; border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); background: #fff; object-fit: contain; }
+
+        /* --- ARAMA --- */
+        .search-box { margin: 0 20px 20px; position: relative; }
+        .search-input { width: 100%; padding: 12px 15px 12px 45px; border-radius: 25px; border: 2px solid #fff; outline: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #999; }
+
+        /* --- GRID KATEGORİLER (ANA EKRAN) --- */
+        .section-title { text-align: center; font-size: 1.2rem; color: var(--secondary); margin-bottom: 15px; font-weight: 800; }
+        
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px; max-width: 800px; margin: 0 auto; }
+        
+        .cat-card { 
+            background: var(--card-bg); border-radius: 15px; padding: 15px 10px; 
+            text-align: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 140px;
+            border: 2px solid transparent; transition: all 0.2s;
+        }
+        .cat-card:active { transform: scale(0.98); border-color: var(--primary); }
+        .cat-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+        .cat-card span { font-size: 0.85rem; font-weight: 800; color: var(--secondary); text-transform: uppercase; }
+        .full-width { grid-column: span 2; }
+
+        /* --- DETAY EKRANI --- */
+        #detail-screen { display: none; background: #f9f9f9; min-height: 100vh; padding-bottom: 140px; position: absolute; top: 0; left: 0; width: 100%; z-index: 500; }
+        
+        .detail-header { 
+            position: sticky; top: 0; background: #fff; padding: 15px; 
+            display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 600;
+        }
+        .back-btn { font-size: 1.5rem; border: none; background: none; margin-right: 15px; color: var(--secondary); cursor: pointer; }
+        #cat-title { font-size: 1.2rem; font-weight: 800; color: var(--secondary); }
+
+        .item-list { padding: 20px; }
+        .item { background: #fff; border-radius: 15px; padding: 15px; margin-bottom: 15px; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.03); position: relative; overflow: hidden; }
+        .item img { width: 90px; height: 90px; border-radius: 10px; object-fit: cover; margin-right: 15px; }
+        .item-info { flex: 1; }
+        .item h3 { margin: 0 0 5px; font-size: 1rem; color: var(--secondary); font-weight: 700; }
+        .item p { margin: 0 0 10px; font-size: 0.75rem; color: #666; font-style: italic; line-height: 1.2; }
+        .item-footer { display: flex; justify-content: space-between; align-items: center; }
+        .price { font-weight: 800; color: var(--primary); font-size: 1.1rem; }
+        .add-btn { 
+            background: var(--primary); color: #fff; width: 35px; height: 35px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(211, 84, 0, 0.3); transition: transform 0.1s;
+        }
+        .add-btn:active { transform: scale(0.9); }
+
+        /* Rozetler */
+        .badge { position: absolute; top: 0; left: 0; padding: 3px 8px; font-size: 0.6rem; font-weight: 700; color: #fff; border-bottom-right-radius: 8px; }
+        .b-hot { background: var(--badge-hot); } .b-chef { background: var(--badge-chef); color: #333; } .b-new { background: var(--badge-new); } .b-veg { background: var(--badge-veg); }
+
+        /* --- SEPET BARI --- */
+        #cart-bar {
+            position: fixed; bottom: 70px; left: 20px; right: 20px;
+            background: var(--secondary); color: white;
+            padding: 15px; border-radius: 15px;
+            display: none; justify-content: space-between; align-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 900;
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .cart-info span { display: block; font-size: 0.8rem; opacity: 0.8; }
+        .cart-total { font-size: 1.3rem; font-weight: 800; }
+        .reset-btn { background: #e74c3c; color: white; border:none; padding: 8px 12px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; }
+
+        /* --- NAV --- */
+        .nav { position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.98); display: flex; justify-content: space-around; padding: 10px; border-top: 1px solid #eee; z-index: 1000; }
+        .nav-item { text-align: center; color: #999; font-size: 0.7rem; text-decoration: none; cursor: pointer; }
+        .nav-item i { font-size: 1.4rem; display: block; margin-bottom: 3px; }
+        .nav-item.active { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <div id="home-screen">
+        <div class="top-header">
+            <span class="brand-name">BÜŞRA GÖZLEME</span>
+            <span class="sub-title">Lezzetli Anlar</span>
+        </div>
+        <div class="logo-container">
+            <img src="logo.png" class="main-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3081/3081093.png'">
+        </div>
+        
+        <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="search" class="search-input" placeholder="Canınız ne çekiyor ? (örn : Kaşarlı Gözleme)" onkeyup="searchFunc()">
+        </div>
+
+        <h2 class="section-title">MENÜ KATEGORİLERİ</h2>
+
+        <div class="grid" id="main-grid">
+            <div class="cat-card" onclick="openCat('yeni_lezzetler')" style="background: #fff8e1; border: 2px solid var(--primary);">
+                <img src="sikma_tost.jpg" class="cat-img" onerror="this.src='logo.png'">
+                <span style="color: var(--primary);">✨ YENİ LEZZETLER</span>
+            </div>
+
+            <div class="cat-card" onclick="openCat('gozleme')">
+                <img src="gozleme.jpg" class="cat-img">
+                <span>GÖZLEMELER</span>
+            </div>
+
+            <div class="cat-card" onclick="openCat('ikonik')">
+                <img src="gozleme.jpg" class="cat-img">
+                <span>İKONİK GÖZLEMELER</span>
+            </div>
+            
+             <div class="cat-card" onclick="openCat('klasik_tost')">
+                <img src="tost.jpg" class="cat-img" onerror="this.src='logo.png'">
+                <span>KLASİK TOSTLAR</span>
+            </div>
+
+            <div class="cat-card" onclick="openCat('bazlama_tost')">
+                <img src="bazlama_tost.jpg" class="cat-img" onerror="this.src='logo.png'">
+                <span>BAZLAMA TOSTLAR</span>
+            </div>
+
+            <div class="cat-card" onclick="openCat('gurme_tost')">
+                <img src="tost.jpg" class="cat-img" onerror="this.src='logo.png'">
+                <span>GURME TOSTLAR</span>
+            </div>
+
+            <div class="cat-card" onclick="openCat('sokak')">
+                <img src="sokak.jpg" class="cat-img" onerror="this.src='logo.png'">
+                <span>SOKAK LEZZETLERİ</span>
+            </div>
+            <div class="cat-card" onclick="openCat('menemen')">
+                <img src="menemen.jpg" class="cat-img">
+                <span>MENEMEN</span>
+            </div>
+            <div class="cat-card" onclick="openCat('sikma')">
+                <img src="sikma.jpg" class="cat-img">
+                <span>SIKMALAR</span>
+            </div>
+            <div class="cat-card" onclick="openCat('borek')">
+                <img src="borek.jpg" class="cat-img">
+                <span>BÖREKLER</span>
+            </div>
+            <div class="cat-card" onclick="openCat('kahvalti')">
+                <img src="kahvalti.jpg" class="cat-img" onerror="this.src='logo.png'">
+                <span>KAHVALTILIKLAR</span>
+            </div>
+            <div class="cat-card" onclick="openCat('tatli')">
+                <img src="tatli.jpg" class="cat-img">
+                <span>TATLILAR</span>
+            </div>
+            <div class="cat-card" onclick="openCat('diger')">
+                <img src="logo.png" class="cat-img">
+                <span>DİĞER LEZZETLER</span>
+            </div>
+            <div class="cat-card" onclick="openCat('icecek')">
+                <img src="icecekler.jpg" class="cat-img">
+                <span>İÇECEKLER</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="detail-screen">
+        <div class="detail-header">
+            <button class="back-btn" onclick="closeCat()"><i class="fas fa-arrow-left"></i></button>
+            <span id="cat-title">KATEGORİ</span>
+        </div>
+        <div id="item-list" class="item-list"></div>
+    </div>
+
+    <div id="cart-bar">
+        <div class="cart-info">
+            <span id="cart-count">0 Ürün Seçildi</span>
+            <div class="cart-total" id="cart-total">0.0₺</div>
+        </div>
+        <button class="reset-btn" onclick="resetCart()">Sepeti Temizle</button>
+    </div>
+
+    <div class="nav">
+        <div class="nav-item active" onclick="closeCat()"><i class="fas fa-home"></i>Anasayfa</div>
+        <a href="https://www.instagram.com/busra_gozleme" target="_blank" class="nav-item"><i class="fab fa-instagram"></i>Instagram</a>
+        <a href="https://wa.me/905368940942" target="_blank" class="nav-item"><i class="fab fa-whatsapp"></i>Sipariş</a>
+    </div>
+
+    <script>
+        // SEPET MANTIĞI
+        let totalAmount = 0;
+        let totalCount = 0;
+
+        function addToCart(name, priceStr) {
+            if(!priceStr) return; // Fiyatı olmayan ürünü sepete ekleme
+            
+            let price = parseFloat(priceStr.replace('₺', '').trim());
+            totalAmount += price;
+            totalCount++;
+            
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const cartBar = document.getElementById('cart-bar');
+            const cartCountEl = document.getElementById('cart-count');
+            const cartTotalEl = document.getElementById('cart-total');
+
+            if(totalCount > 0) {
+                cartBar.style.display = 'flex';
+                cartCountEl.innerText = `${totalCount} Ürün Seçildi`;
+                cartTotalEl.innerText = `${totalAmount.toFixed(1)}₺`;
+            } else {
+                cartBar.style.display = 'none';
+            }
+        }
+
+        function resetCart() {
+            totalAmount = 0;
+            totalCount = 0;
+            updateCartDisplay();
+        }
+
+        function openCat(cat) {
+            document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('detail-screen').style.display = 'block';
+            document.getElementById('cat-title').innerText = cat.toUpperCase().replace('_',' ');
+            
+            const list = document.getElementById('item-list');
+            list.innerHTML = '';
+            
+            const items = data[cat];
+            if(items){
+                items.forEach(item => {
+                    let badgeHTML = '';
+                    if(item.b) {
+                        let bText = item.b === 'hot' ? '🔥 Çok Tercih Edilen' : item.b === 'chef' ? '⭐ Şefin Seçimi' : item.b === 'new' ? '✨ Yeni' : '';
+                        let bClass = 'b-' + item.b;
+                        badgeHTML = `<div class="badge ${bClass}">${bText}</div>`;
+                    }
+
+                    // Fiyat Kontrolü
+                    let priceHTML = item.p ? `<div class="price">${item.p}</div>` : '';
+                    let addBtnHTML = item.p ? `<div class="add-btn" onclick="addToCart('${item.n}', '${item.p}')">+</div>` : '';
+
+                    // FALLBACK GÖRSEL MANTIĞI
+                    let fallbackImg = 'logo.png';
+                    if (cat === 'kahvalti') fallbackImg = 'kahvalti.jpg';
+                    if (cat === 'sokak') fallbackImg = 'sokak.jpg';
+                    if (cat === 'diger') fallbackImg = 'logo.png';
+                    // Yeni eklenen kategoriler için fallback
+                    if (cat === 'yeni_lezzetler') fallbackImg = 'sikma_tost.jpg';
+                    if (cat === 'bazlama_tost') fallbackImg = 'bazlama_tost.jpg';
+
+                    list.innerHTML += `
+                    <div class="item">
+                        ${badgeHTML}
+                        <img src="${item.i}" onerror="this.onerror=null; this.src='${fallbackImg}';">
+                        <div class="item-info">
+                            <h3>${item.n}</h3>
+                            <p>${item.d}</p>
+                            <div class="item-footer">
+                                ${priceHTML}
+                                ${addBtnHTML}
+                            </div>
+                        </div>
+                    </div>`;
+                });
+            }
+            window.scrollTo(0,0);
+        }
+
+        function closeCat() {
+            document.getElementById('detail-screen').style.display = 'none';
+            document.getElementById('home-screen').style.display = 'block';
+            document.getElementById('search').value = '';
+            document.getElementById('main-grid').style.display = 'grid';
+            document.querySelector('.section-title').style.display = 'block';
+        }
+
+        function searchFunc() {
+            const val = document.getElementById('search').value.toLowerCase();
+            if(val.length > 2) {
+                document.getElementById('home-screen').style.display = 'none';
+                document.getElementById('detail-screen').style.display = 'block';
+                document.getElementById('cat-title').innerText = "ARAMA SONUÇLARI";
+                const list = document.getElementById('item-list');
+                list.innerHTML = '';
+                
+                for(let key in data) {
+                    data[key].forEach(item => {
+                        if(item.n.toLowerCase().includes(val)) {
+                            let priceHTML = item.p ? `<div class="price">${item.p}</div>` : '';
+                            let addBtnHTML = item.p ? `<div class="add-btn" onclick="addToCart('${item.n}', '${item.p}')">+</div>` : '';
+                            
+                            // Aramada varsayılan görsel logo olsun
+                            list.innerHTML += `
+                            <div class="item">
+                                <img src="${item.i}" onerror="this.src='logo.png'">
+                                <div class="item-info">
+                                    <h3>${item.n}</h3>
+                                    <p>${item.d}</p>
+                                    <div class="item-footer">
+                                        ${priceHTML}
+                                        ${addBtnHTML}
+                                    </div>
+                                </div>
+                            </div>`;
+                        }
+                    });
+                }
+            } else if (val.length === 0) {
+                closeCat();
+            }
+        }
+
+        const data = {
+            yeni_lezzetler: [
+                // Yeni Eklenen Sıkma Tostlar (Görseli: sikma_tost.jpg)
+                {n:"Sıkma Ekmeğinde Kaşarlı Tost", d:"Ketçap, pul biber.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Sucuklu Tost", d:"Sucuk, ketçap, mayonez.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Sucuklu Kaşarlı", d:"Kaşar, sucuk, ketçap, mayonez.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Sebzeli Tost", d:"Kaşar, domates, çarliston biber.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Karışık Sebzeli", d:"Sucuk, kaşar, domates, biber, ketçap.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Kumru Tost", d:"Sucuk, sosis, salam, kaşar, ketçap, mayonez.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Yumurtalı Kaşarlı", d:"Yumurta, kaşar, ketçap, mayonez.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Yumurtalı Sucuklu", d:"Sucuk, yumurta, ketçap.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Karışık Yumurtalı", d:"Sucuk, kaşar, yumurta, ketçap.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Beyaz Peynirli", d:"Beyaz peynir, domates, çarliston biber, pul biber.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Atom Tost", d:"Sucuk, sosis, salam, kaşar, cheddar, yumurta, domates, biber, ketçap, mayonez.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Ayvalık Tostu", d:"Sucuk, kaşar, cheddar, sosis, domates, biber, salatalık turşusu, ketçap, mayonez.", p:"", i:"sikma_tost.jpg", b:"new"},
+                // Avokadolu Tostlar (En Alta Taşındı) - Görsel: tost.jpg
+                {n:"Ballı Tarçınlı Avokado Tost", d:"Tam buğday ekmeğine; Avokado, ezilmiş ceviz, lor peynir, tarçın, bal.", p:"", i:"tost.jpg", b:"new"},
+                {n:"Peynir Domates ve Avokadulu Tost", d:"Tam buğday ekmeğine; Avokado, beyaz peynir, domates, çarliston biber, kekik, çörek otu.", p:"", i:"tost.jpg", b:"new"},
+                {n:"Sarımsaklı Avokado Tost", d:"Tam buğday ekmeğine; Avokado, rende sarımsak, limon suyu, karabiber, tuz, pul biber, kaşar, çörek otu.", p:"", i:"tost.jpg", b:"new"}
+            ],
+            bazlama_tost: [
+                {n:"Sucuklu Kaşarlı Bazlama Tost", d:"140 gr bazlama ekmeği, sucuk, kaşar, özel dip sos, pul biber.", p:"180.0₺", i:"bazlama_tost.jpg"},
+                {n:"Kavurmalı Bazlama Tost", d:"140 gr bazlama ekmeği, kaşar, dana kavurma, özel dip sos, kekik, pul biber.", p:"200.0₺", i:"bazlama_tost.jpg"},
+                {n:"Kavurmalı Yumurtalı Bazlama", d:"140 gr bazlama ekmeği, kaşar, dana kavurma, yumurta, özel dip sos, kekik, pul biber.", p:"210.0₺", i:"bazlama_tost.jpg"},
+                {n:"Cıvık Bazlama Tost", d:"140 gr bazlama ekmeği, kaşar, dana kavurma, sucuk, sosis, özel dip sos, kekik, pul biber.", p:"230.0₺", i:"bazlama_tost.jpg"},
+                {n:"Doyuyo Bazlama Tost", d:"140 gr bazlama ekmeği, kaşar, dana kavurma, sucuk, sosis, yumurta, cheddar peyniri, özel dip sos, kekik, pul biber.", p:"250.0₺", i:"bazlama_tost.jpg", b:"chef"},
+                {n:"Peynir Şöleni Bazlama", d:"140 gr bazlama ekmeği, özel dip sos, kaşar, beyaz peynir, cheddar, mozzarella, pul biber, kekik.", p:"200.0₺", i:"bazlama_tost.jpg"},
+                {n:"Sebzeli Bazlama Tost", d:"140 gr bazlama ekmeği, kaşar, beyaz peynir, domates, çarliston biber, pul biber, kekik.", p:"190.0₺", i:"bazlama_tost.jpg"},
+                {n:"Vejeteryan Bazlama Tost", d:"140 gr bazlama ekmeği, kaşar, beyaz peynir, domates, çarliston biber, salamura zeytin, zeytinyağı, pul biber, kekik.", p:"190.0₺", i:"bazlama_tost.jpg", b:"veg"},
+                {n:"Akdeniz Bazlama Tost", d:"140 gr bazlama ekmeği, kaşar, beyaz peynir, domates, çarliston biber, salamura zeytin, mevsim yeşillik, zeytinyağı, çörek otu, pul biber, kekik.", p:"200.0₺", i:"bazlama_tost.jpg"}
+            ],
+            klasik_tost: [
+                {n:"Kaşarlı Tost", d:"Ketçap, pul biber.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Sucuklu Tost", d:"Sucuk, ketçap, mayonez.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Sucuklu Kaşarlı Tost", d:"Kaşar, sucuk, ketçap, mayonez.", p:"140.0₺", i:"tost.jpg", b:"hot"},
+                {n:"Sebzeli Tost", d:"Kaşar, domates, çarliston biber.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Karışık Sebzeli", d:"Sucuk, kaşar, domates, biber, ketçap.", p:"150.0₺", i:"tost.jpg"},
+                {n:"Kumru Tost", d:"Sucuk, sosis, salam, kaşar, ketçap, mayonez.", p:"", i:"tost.jpg"},
+                {n:"Yumurtalı Kaşarlı Tost", d:"Yumurta, kaşar, ketçap, mayonez.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Yumurtalı Sucuklu Tost", d:"Sucuk, yumurta, ketçap.", p:"145.0₺", i:"tost.jpg"},
+                {n:"Karışık Yumurtalı Tost", d:"Sucuk, kaşar, yumurta, ketçap.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Beyaz Peynirli Tost", d:"Beyaz peynir, domates, çarliston biber, pul biber.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Atom Tost", d:"Sucuk, sosis, salam, kaşar, cheddar, yumurta, domates, biber, ketçap, mayonez.", p:"200.0₺", i:"tost.jpg", b:"chef"},
+                {n:"Ayvalık Tostu", d:"Sucuk, kaşar, cheddar, sosis, domates, biber, salatalık turşusu, ketçap, mayonez.", p:"175.0₺", i:"tost.jpg"}
+            ],
+            gurme_tost: [
+                {n:"Kavurmalı Tost", d:"Dana kavurma, kaşar, pul biber, karabiber, az ketçap.", p:"200.0₺", i:"tost.jpg", b:"chef"},
+                {n:"Kıymalı Kaşarlı Tost", d:"Soğanla sotelenmiş kıyma, kaşar, pul biber, karabiber, kekik.", p:"200.0₺", i:"tost.jpg"},
+                {n:"Tavuk Mantar", d:"Baharat ve kapya biberle harmanlanmış tavuk, mantar, kaşar, kekik, salça.", p:"190.0₺", i:"tost.jpg"},
+                {n:"Vali Tost", d:"Sucuk, çift kaşar, cheddar, domates, biber, salça, kekik.", p:"190.0₺", i:"tost.jpg"},
+                {n:"Mantarlı Tost", d:"Mantar, kaşar, pul biber, kekik, ketçap.", p:"180.0₺", i:"tost.jpg"},
+                {n:"Vejeteryan Tost", d:"Kaşar, beyaz peynir, domates, çarliston biber, siyah zeytin, pul biber.", p:"180.0₺", i:"tost.jpg", b:"veg"},
+                {n:"Akdeniz Tostu", d:"Beyaz peynir, kaşar, domates, yeşil biber, zeytin, kuru kekik, pul biber, karabiber, mevsim yeşillik, az zeytinyağı.", p:"190.0₺", i:"tost.jpg"},
+                {n:"Afrodit Tost", d:"Kaşar, cheddar, yumurta, domates, çarliston biber, çörek otu, salça, kekik.", p:"190.0₺", i:"tost.jpg"},
+                {n:"Cheddar's Bombası", d:"Sucuk, kaşar, 4 dilim cheddar peyniri, ketçap.", p:"180.0₺", i:"tost.jpg", b:"hot"},
+                {n:"Zeus Tost", d:"Sucuk, kavurma, çift kaşar, cheddar, domates, çarliston biber, salça, kekik.", p:"210.0₺", i:"tost.jpg"},
+                {n:"Sosislim Tost", d:"Sosis, kaşar, cheddar peyniri, ketçap, mayonez.", p:"180.0₺", i:"tost.jpg"},
+                {n:"Etobur Tost", d:"Sucuk, salam, sosis, kaşar, cheddar peyniri, ketçap, mayonez.", p:"190.0₺", i:"tost.jpg"},
+                {n:"Cümbür Cemaat Tost", d:"Sucuk, salam, sosis, kaşar, cheddar, yumurta, patates kızartması, ketçap, mayonez.", p:"200.0₺", i:"tost.jpg"},
+                {n:"Manyak Tost", d:"Kaşar, cheddar, kavurma, sucuk, yumurta, kornişon turşu, salça, kekik.", p:"210.0₺", i:"tost.jpg"},
+                {n:"Peynir Şöleni Tost", d:"Mozzarella, kaşar, beyaz peynir, cheddar, bir kaşık bal, kekik.", p:"200.0₺", i:"tost.jpg"},
+                {n:"Kıymalı Yumurtalı", d:"Kıyma, yumurta, kaşar, pul biber, kekik.", p:"210.0₺", i:"tost.jpg"},
+                {n:"Mantarlı Yumurtalı", d:"Mantar, yumurta, kaşar, ketçap, mayonez.", p:"190.0₺", i:"tost.jpg"},
+                {n:"Haşlanmış Yumurtalı", d:"Kaşar, haşlanmış yumurta, domates, biber, yeşil soğan, pul biber, salça, kekik.", p:"160.0₺", i:"tost.jpg"},
+                {n:"Patatesli Tost", d:"Patates kızartması, kaşar, pul biber, ketçap, mayonez.", p:"150.0₺", i:"tost.jpg"},
+                {n:"Patates Kızartmalı Tost", d:"Patates kızartması, kaşar, pul biber, ketçap, mayonez.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Fıstık Ezmeli Tost", d:"Kaymak, fıstık ezmesi, pudra şekeri.", p:"250.0₺", i:"tost.jpg"},
+                {n:"Redbull Tost", d:"Kaymak, fıstık ezmesi, çikolata, bal, çekilmiş fıstık, pudra şekeri.", p:"280.0₺", i:"tost.jpg"},
+                {n:"Çikotost", d:"Nutella, labne peyniri, yer fıstığı taneleri, pudra şekeri.", p:"180.0₺", i:"tost.jpg"},
+                {n:"Fındıkla Tostlaş", d:"Fındık ezmesi, pudra şekeri, labne peyniri, yer fıstığı tanecikleri.", p:"180.0₺", i:"tost.jpg"},
+                {n:"Pizza Tost", d:"Dip sos, sucuk, kaşar, mantar, sosis, zeytin, mısır, cheddar, salam, biber, domates, mayonez.", p:"200.0₺", i:"tost.jpg"},
+                {n:"Pastırmalı Tost", d:"Pastırma dilimleri, kaşar, salça, az kekik.", p:"200.0₺", i:"tost.jpg"},
+                {n:"Pastırmalı Yumurtalı", d:"Pastırma dilimleri, kaşar, yumurta, salça, az kekik.", p:"210.0₺", i:"tost.jpg"},
+                {n:"Efe Tostu", d:"Pastırma dilimleri, kaşar, mozzarella, dip sos, yumurta, pul biber, karabiber, kekik.", p:"230.0₺", i:"tost.jpg"}
+            ],
+            menemen: [
+                {n:"Sade Menemen", d:"Domates, çift yumurta, baharat.", p:"150.0₺", i:"menemen.jpg"},
+                {n:"Kaşarlı Menemen", d:"Domates, çift yumurta, kaşar.", p:"165.0₺", i:"menemen.jpg"},
+                {n:"Sucuklu Menemen", d:"Domates, çift yumurta, kaşar, sucuk.", p:"180.0₺", i:"menemen.jpg"},
+                {n:"Kavurmalı Menemen", d:"Domates, çift yumurta, kaşar, kavurma.", p:"230.0₺", i:"menemen.jpg", b:"chef"},
+                {n:"Pastırmalı Menemen", d:"Domates, çift yumurta, kaşar, pastırma.", p:"230.0₺", i:"menemen.jpg"},
+                {n:"Sosisli Menemen", d:"Domates, çift yumurta, kaşar, sosis.", p:"190.0₺", i:"menemen.jpg"},
+                {n:"Yarma Yeşil Zeytinli", d:"Domates, çift yumurta, kaşar, yeşil zeytin.", p:"190.0₺", i:"menemen.jpg"},
+                {n:"Beyaz Peynirli Menemen", d:"Domates, çift yumurta, kaşar, sucuk.", p:"180.0₺", i:"menemen.jpg"},
+                {n:"Mantarlı Menemen", d:"Domates, çift yumurta, kaşar, mantar.", p:"190.0₺", i:"menemen.jpg"},
+                {n:"Tavuklu Menemen", d:"Domates, çift yumurta, kaşar, tavuk göğsü.", p:"190.0₺", i:"menemen.jpg"},
+                {n:"Kıymalı Menemen", d:"Domates, çift yumurta, kaşar, kıyma.", p:"220.0₺", i:"menemen.jpg"}
+            ],
+            sikma: [
+                {n:"Kaşarlı Sıkma", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Antep Peynirli Sıkma", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Beyaz Peynirli Sıkma", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Terbiyeli Lor Peynirli", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Kaşarlı Antep Peynirli", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Patates Püreli Sıkma", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Patates Püreli Kaşarlı", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Yeşil Zeytinli Sıkma", d:"", p:"135.0₺", i:"sikma.jpg"},
+                {n:"Yeşil Zeytinli Kaşarlı", d:"", p:"135.0₺", i:"sikma.jpg"},
+                {n:"Yeşil Zeytinli Antep", d:"", p:"135.0₺", i:"sikma.jpg"},
+                {n:"Tavuklu Kaşarlı Sıkma", d:"Tavuk, kaşar, piyaz, domates, taze biber.", p:"145.0₺", i:"sikma.jpg"},
+                {n:"Helvalı Sıkma", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Patates Kızartmalı", d:"Patates, kaşar, pul biber, ketçap, mayonez.", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Çoban Dürümü", d:"Haşlanmış yumurta, patates, kaşar, maydanoz, domates, biber, soslar.", p:"135.0₺", i:"sikma.jpg"},
+                {n:"Maydanozlu Peynirli", d:"Kaşar, Antep peyniri, maydanoz, pul biber.", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Domates Dürümlü", d:"Domates, salatalık, taze biber, kaşar, Antep peyniri.", p:"120.0₺", i:"sikma.jpg"}
+            ],
+            gozleme: [
+                {n:"Kaşarlı Gözleme", d:"", p:"175.0₺", i:"gozleme.jpg", b:"hot"},
+                {n:"Antep Peynirli Gözleme", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Beyaz Peynirli Gözleme", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Terbiyeli Lorlu Gözleme", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Tulum Peynirli Gözleme", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Tulum Peynirli Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Kaşarlı Antep Peynirli", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Kaşarlı Yumurtalı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Antep Peynirli Yumurtalı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Patatesli Gözleme (Terbiyeli)", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Patatesli Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg", b:"chef"},
+                {n:"Patatesli Antep Peynirli", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Patatesli Lor Peynirli", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Yeşil Zeytinli", d:"", p:"185.0₺", i:"gozleme.jpg", b:"veg"},
+                {n:"Yeşil Zeytinli Kaşarlı", d:"", p:"185.0₺", i:"gozleme.jpg"},
+                {n:"Yeşil Zeytinli Antep", d:"", p:"185.0₺", i:"gozleme.jpg"},
+                {n:"Yeşil Zeytinli Lorlu", d:"", p:"185.0₺", i:"gozleme.jpg"},
+                {n:"Yeşil Zeytinli Tulum", d:"", p:"185.0₺", i:"gozleme.jpg"},
+                {n:"Sucuklu Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg", b:"hot"},
+                {n:"Ispanaklı Gözleme", d:"", p:"175.0₺", i:"gozleme.jpg", b:"veg"},
+                {n:"Ispanak Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Ispanaklı Tulum", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Ispanaklı Lor Peynirli", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Ispanaklı Yumurtalı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Ispanaklı Yum. Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Mantarlı Kaşarlı", d:"", p:"185.0₺", i:"gozleme.jpg"},
+                {n:"Tavuk Mantarlı", d:"Tavuk, Mantar, Kaşar.", p:"190.0₺", i:"gozleme.jpg"},
+                {n:"Tavuklu Kaşarlı", d:"", p:"185.0₺", i:"gozleme.jpg"},
+                {n:"Kavurmalı Kaşarlı", d:"", p:"220.0₺", i:"gozleme.jpg", b:"hot"},
+                {n:"Kavurmalı Mantarlı", d:"Kavurma, Mantar, Kaşar.", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kavurmalı Yumurtalı", d:"Kavurma, Yumurta, Kaşar.", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Gözleme", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Tulum", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Mantarlı", d:"Kıyma, Mantar, Kaşar.", p:"225.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Kaşarlı", d:"", p:"220.0₺", i:"gozleme.jpg", b:"hot"},
+                {n:"Kıymalı Ispanaklı", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Isp. Kaşarlı", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Yumurtalı", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Yum. Kaşarlı", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Patatesli", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Tarhanalı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Tarhanalı Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Kabaklı", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Ton Balıklı", d:"Ton balığı, mantar, mevsim yeşillik.", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Ton Balıklı Kaşarlı", d:"Ton balığı, kaşar, mantar, mevsim yeşillik.", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Köz Patlıcanlı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Köz Patlıcanlı Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Kabaklı Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg"}
+            ],
+            ikonik: [
+                {n:"Cennet Gözleme", d:"Kıyma, mantar, bezelye, mısır, kaşar.", p:"250.0₺", i:"gozleme.jpg", b:"new"},
+                {n:"İzmir Esintisi", d:"Dip sos, sucuk, kaşar, sosis, salam.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Melek Gözleme", d:"Köz patlıcan, pişmiş domates, biber, kıyma, mantar, kaşar.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Gerdan Gözleme", d:"Yumurta, sucuk, siyah zeytin, kaşar, mantar.", p:"230.0₺", i:"gozleme.jpg"},
+                {n:"Bahar Gözleme", d:"Patates, tavuk, mantar, kaşar, kekik.", p:"230.0₺", i:"gozleme.jpg"},
+                {n:"Burma Gözleme", d:"Kavurma, yumurta, salam, kaşar, mozzarella, mantar.", p:"260.0₺", i:"gozleme.jpg"},
+                {n:"Yeşil Gözleme", d:"Mevsim yeşillikleri, mantar, kaşar, lor, Antep peyniri, pul biber, zeytinyağı.", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Pizza Gözleme", d:"Dip sos, kaşar, mozzarella, sucuk, sosis, salam, mısır, mantar, zeytin, kapya biber.", p:"260.0₺", i:"gozleme.jpg"},
+                {n:"Ateşli Tavuk", d:"Tavuk göğsü, biber/domates salçası, acı toz biber, kapya, sarımsak, kekik, mozzarella, kaşar (Acı sos ile).", p:"260.0₺", i:"gozleme.jpg", b:"hot"},
+                {n:"Pastırma Gurmesi", d:"Pastırma dilimleri, kuru domates, mozzarella, kaşar, kekik.", p:"270.0₺", i:"gozleme.jpg"},
+                {n:"Margarita Gözleme", d:"Özel dip sos, kuru kekik, mozzarella peyniri, küp domates.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Peynirli Hazine", d:"Mozzarella, kaşar, beyaz peynir, maydanoz, hafif pul biber, tereyağı.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Yeşil Rüya", d:"Ispanak, dereotu, maydanoz, yeşil soğan, lor, zeytinyağı, karabiber, pul biber.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Anadolu Ateşi", d:"Kıyma, kaşar, mozzarella, biber salçası, sarımsak, kapya, soğan, kimyon, kırmızı biber.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Deli Toko", d:"Tavuk, mantar, taco baharatı, cheddar, mozzarella, mısır, kornişon turşu.", p:"260.0₺", i:"gozleme.jpg"},
+                {n:"Kıtır Milano", d:"Dilimli pastırma, kurutulmuş domates, mozzarella, pesto sosu, taze roka.", p:"280.0₺", i:"gozleme.jpg", b:"chef"},
+                {n:"Kamp Ateşi", d:"Közlenmiş patlıcan, kapya biber, kuru soğan, tulum peyniri, zeytinyağı, baharat.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Galaksi 35", d:"Kaşar, beyaz peynir, ince sucuk, köz kapya, maydanoz, zeytin ezmesi.", p:"250.0₺", i:"gozleme.jpg"}
+            ],
+            kahvalti: [
+                {n:"Butik Kahvaltı Tabağı", d:"Peynir, zeytin, domates, salatalık, haşlanmış yumurta, salam, bal, tereyağı.", p:"190.0₺", i:"butik_kahvalti.jpg"},
+                {n:"Duble Kahvaltı Tabağı", d:"Peynir, zeytin, domates, salatalık, haşlanmış yumurta, salam, bal kaymak, tereyağı, patates kızartması, sigara böreği, pişi, reçel, fındık ezmesi.", p:"250.0₺", i:"duble_kahvalti.jpg", b:"chef"},
+                {n:"Sigara Böreği Peynirli", d:"8 Adet.", p:"100.0₺", i:"sigara_boregi.jpg"},
+                {n:"Sigara Böreği Patatesli", d:"8 Adet.", p:"100.0₺", i:"sigara_boregi.jpg"},
+                {n:"Yeşil Zeytinli Semsek", d:"Kapalı zeytinli börek.", p:"185.0₺", i:"borek.jpg"},
+                {n:"Kaşarlı Zeytinli Semsek", d:"Zeytin ve kaşarlı.", p:"185.0₺", i:"borek.jpg"},
+                {n:"Yumurtalı Omlet", d:"Çift yumurta ile sade.", p:"115.0₺", i:"yumurtali_omlet.jpg"},
+                {n:"Kaşarlı Omlet", d:"", p:"120.0₺", i:"kasarli_omlet.jpg"},
+                {n:"Sucuklu Omlet", d:"", p:"125.0₺", i:"sucuklu_omlet.jpg"},
+                {n:"Mantarlı Omlet", d:"", p:"135.0₺", i:"mantarli_omlet.jpg"},
+                {n:"Sucuklu Kaşarlı Omlet", d:"", p:"130.0₺", i:"sucuklu_kasarli.jpg"},
+                {n:"Kavurmalı Omlet", d:"", p:"180.0₺", i:"kavurmali_omlet.jpg"},
+                {n:"Pastırmalı Omlet", d:"Pastırma, kaşar, yumurta.", p:"180.0₺", i:"pastirmali_omlet.jpg"},
+                {n:"Pastırmalı Sucuklu", d:"Pastırma, sucuk, kaşar, yumurta.", p:"200.0₺", i:"pastirmali_sucuklu.jpg"}
+            ],
+            tatli: [
+                {n:"Köy Katmeri", d:"Kaymak, şeker, fıstık, tereyağı.", p:"290.0₺", i:"tatli.jpg", b:"chef"},
+                {n:"Çikolatalı Katmer", d:"Kaymak, fıstık, çikolata, tereyağı.", p:"260.0₺", i:"tatli.jpg"},
+                {n:"Çikolatalı Gözleme", d:"Çikolata, pudra şekeri, yer fıstığı taneleri.", p:"200.0₺", i:"gozleme.jpg"},
+                {n:"Çikolatalı Labneli", d:"Çikolata, labne peynir, pudra şekeri, yer fıstığı taneleri.", p:"230.0₺", i:"gozleme.jpg"},
+                {n:"Fıstık Ezmeli Gözleme", d:"Fıstık ezmesi, kaymak, toz fıstık.", p:"270.0₺", i:"gozleme.jpg"},
+                {n:"Redbull Gözleme", d:"Fıstık ezmesi, kaymak, çikolata, bal, çekilmiş fıstık, yer fıstığı.", p:"290.0₺", i:"gozleme.jpg"}
+            ],
+            borek: [
+                {n:"Kıymalı Ay Böreği", d:"", p:"220.0₺", i:"borek.jpg", b:"hot"},
+                {n:"Kıymalı Kaşarlı", d:"", p:"220.0₺", i:"borek.jpg"},
+                {n:"Tarhanalı Ay Böreği", d:"", p:"175.0₺", i:"borek.jpg"},
+                {n:"Tarhanalı Kaşarlı", d:"", p:"175.0₺", i:"borek.jpg"},
+                {n:"Yeşil Zeytinli Ay Böreği", d:"", p:"185.0₺", i:"borek.jpg"},
+                {n:"Yeşil Zeytinli Kaşarlı", d:"", p:"185.0₺", i:"borek.jpg"}
+            ],
+            icecek: [
+                {n:"Çay", d:"", p:"20.0₺", i:"cay.jpg"},
+                {n:"Duble Çay", d:"", p:"35.0₺", i:"fincan_cay.jpg"},
+                {n:"Nescafe", d:"", p:"50.0₺", i:"nescafe.jpg"},
+                {n:"Türk Kahvesi", d:"", p:"70.0₺", i:"turk_kahvesi.jpg"},
+                {n:"Cola (330ml)", d:"", p:"60.0₺", i:"cola.jpg"},
+                {n:"Pepsi (330ml)", d:"", p:"60.0₺", i:"pepsi.jpg"},
+                {n:"Fanta (330ml)", d:"", p:"60.0₺", i:"fanta.jpg"},
+                {n:"Soğuk Çay (330ml)", d:"", p:"60.0₺", i:"ice_tea.jpg"},
+                {n:"Brox Cola", d:"", p:"40.0₺", i:"brox.jpg"},
+                {n:"Brox Portakal", d:"", p:"40.0₺", i:"brox.jpg"},
+                {n:"Brox Orman Meyveli", d:"", p:"40.0₺", i:"brox.jpg"},
+                {n:"Şalgam", d:"", p:"35.0₺", i:"salgam.jpg"},
+                {n:"Ayran", d:"", p:"40.0₺", i:"ayran.jpg"},
+                {n:"Soda", d:"", p:"25.0₺", i:"soda.jpg"},
+                {n:"Meyveli Soda", d:"", p:"35.0₺", i:"meyveli_soda.jpg"},
+                {n:"Gazoz", d:"", p:"40.0₺", i:"gazoz.jpg"},
+                {n:"Su", d:"", p:"10.0₺", i:"su.jpg"}
+            ],
+            sokak: [
+                {n:"Cızbız Köfte", d:"Izgara köfte, domates, biber ve yeşillik ile servis edilir.", p:"", i:"cizbiz_kofte.jpg"},
+                {n:"Kaşarlı Cızbız Köfte", d:"İçinde erimiş kaşar peyniri bulunan ızgara köfte.", p:"", i:"cizbiz_kofte.jpg"},
+                {n:"Hamburger", d:"Klasik hamburger ekmeği, hamburger köftesi, domates ve turşu.", p:"", i:"hamburger.jpg"}
+            ],
+            diger: [
+                {n:"Patates Kızartması", d:"Çıtır parmak patates kızartması.", p:"", i:"patates_kizartmasi.jpg"},
+                {n:"Bazlama Ekmeği", d:"Yumuşak, el yapımı bazlama ekmeği.", p:"", i:"bazlama_ekmegi.jpg"},
+                {n:"Ketçap", d:"Yemeğinizin yanına ilave paket ketçap.", p:"", i:"ketcap.jpg"},
+                {n:"Mayonez", d:"Yemeğinizin yanına ilave paket mayonez.", p:"", i:"mayonez.jpg"},
+                {n:"Acı Sos", d:"Özel yapım acı sos.", p:"", i:"aci_sos.jpg"}
+            ]
+        };
+    </script>
+</body>
+</html>
