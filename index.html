@@ -53,7 +53,7 @@
         .cat-card span { font-size: 0.85rem; font-weight: 800; color: var(--secondary); text-transform: uppercase; }
         .full-width { grid-column: span 2; }
 
-        /* --- DETAY EKRANI (TIKLAYINCA AÇILAN) --- */
+        /* --- DETAY EKRANI --- */
         #detail-screen { display: none; background: #f9f9f9; min-height: 100vh; padding-bottom: 140px; position: absolute; top: 0; left: 0; width: 100%; z-index: 500; }
         
         .detail-header { 
@@ -111,7 +111,7 @@
             <span class="sub-title">Lezzetli Anlar</span>
         </div>
         <div class="logo-container">
-            <img src="logo.png" class="main-logo" onerror="this.src='https://via.placeholder.com/150/d35400/FFFFFF?text=LOGO'">
+            <img src="logo.png" class="main-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3081/3081093.png'">
         </div>
         
         <div class="search-box">
@@ -122,22 +122,36 @@
         <h2 class="section-title">MENÜ KATEGORİLERİ</h2>
 
         <div class="grid" id="main-grid">
+            <div class="cat-card" onclick="openCat('yeni_lezzetler')" style="background: #fff8e1; border: 2px solid var(--primary);">
+                <img src="sikma_tost.jpg" class="cat-img" onerror="this.src='logo.png'">
+                <span style="color: var(--primary);">✨ YENİ LEZZETLER</span>
+            </div>
+
             <div class="cat-card" onclick="openCat('gozleme')">
                 <img src="gozleme.jpg" class="cat-img">
                 <span>GÖZLEMELER</span>
             </div>
+
             <div class="cat-card" onclick="openCat('ikonik')">
                 <img src="gozleme.jpg" class="cat-img">
                 <span>İKONİK GÖZLEMELER</span>
             </div>
-            <div class="cat-card" onclick="openCat('klasik_tost')">
+            
+             <div class="cat-card" onclick="openCat('klasik_tost')">
                 <img src="tost.jpg" class="cat-img" onerror="this.src='logo.png'">
                 <span>KLASİK TOSTLAR</span>
             </div>
+
+            <div class="cat-card" onclick="openCat('bazlama_tost')">
+                <img src="bazlama_tost.jpg" class="cat-img" onerror="this.src='logo.png'">
+                <span>BAZLAMA TOSTLAR</span>
+            </div>
+
             <div class="cat-card" onclick="openCat('gurme_tost')">
                 <img src="tost.jpg" class="cat-img" onerror="this.src='logo.png'">
                 <span>GURME TOSTLAR</span>
             </div>
+
             <div class="cat-card" onclick="openCat('sokak')">
                 <img src="sokak.jpg" class="cat-img" onerror="this.src='logo.png'">
                 <span>SOKAK LEZZETLERİ</span>
@@ -230,238 +244,6 @@
             updateCartDisplay();
         }
 
-        const data = {
-            sokak: [
-                {n:"Cızbız Köfte", d:"Izgara köfte, domates, biber ve yeşillik ile servis edilir.", p:"", i:"cizbiz_kofte.jpg"},
-                {n:"Kaşarlı Cızbız Köfte", d:"İçinde erimiş kaşar peyniri bulunan ızgara köfte.", p:"", i:"cizbiz_kofte.jpg"},
-                {n:"Hamburger", d:"Klasik hamburger ekmeği, hamburger köftesi, domates ve turşu.", p:"", i:"hamburger.jpg"}
-            ],
-            diger: [
-                {n:"Patates Kızartması", d:"Çıtır parmak patates kızartması.", p:"", i:"patates_kizartmasi.jpg"},
-                {n:"Bazlama Ekmeği", d:"Yumuşak, el yapımı bazlama ekmeği.", p:"", i:"bazlama_ekmegi.jpg"},
-                {n:"Ketçap", d:"Yemeğinizin yanına ilave paket ketçap.", p:"", i:"ketcap.jpg"},
-                {n:"Mayonez", d:"Yemeğinizin yanına ilave paket mayonez.", p:"", i:"mayonez.jpg"},
-                {n:"Acı Sos", d:"Özel yapım acı sos.", p:"", i:"aci_sos.jpg"}
-            ],
-            gozleme: [
-                {n:"Kaşarlı Gözleme", d:"İnce hamur içerisinde erimiş kaşar peyniri.", p:"175.0₺", i:"gozleme.jpg", b:"hot"},
-                {n:"Antep Peynirli Gözleme", d:"Yöresel Antep peyniri ile hazırlanan gözleme.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Beyaz Peynirli Gözleme", d:"Klasik beyaz peynir ve maydanozlu iç harç.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Terbiyeli Lorlu Gözleme", d:"Baharatlarla lezzetlendirilmiş lor peyniri.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Tulum Peynirli Gözleme", d:"İzmir tulum peyniri ile hazırlanan özel lezzet.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Tulum Peynirli Kaşarlı", d:"Tulum peyniri ve kaşar peyniri karışımı.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Kaşarlı Antep Peynirli", d:"Antep peyniri ve kaşar peyniri karışımı.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Kaşarlı Yumurtalı", d:"Kaşar peyniri ve yumurta karışımı.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Antep Peynirli Yumurtalı", d:"Antep peyniri ve yumurta karışımı.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Patatesli (Terbiyeli)", d:"Baharatlı ve soğanlı patates harcı.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Patatesli Kaşarlı", d:"Patates harcı ve erimiş kaşar peyniri.", p:"175.0₺", i:"gozleme.jpg", b:"chef"},
-                {n:"Patatesli Antep Peynirli", d:"Patates harcı ve Antep peyniri.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Patatesli Lor Peynirli", d:"Patates harcı ve lor peyniri.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Yeşil Zeytinli", d:"Kırma yeşil zeytinli iç harç.", p:"185.0₺", i:"gozleme.jpg", b:"veg"},
-                {n:"Yeşil Zeytinli Kaşarlı", d:"Yeşil zeytin ve kaşar peyniri.", p:"185.0₺", i:"gozleme.jpg"},
-                {n:"Yeşil Zeytinli Antep", d:"Yeşil zeytin ve Antep peyniri.", p:"185.0₺", i:"gozleme.jpg"},
-                {n:"Yeşil Zeytinli Lorlu", d:"Yeşil zeytin ve lor peyniri.", p:"185.0₺", i:"gozleme.jpg"},
-                {n:"Yeşil Zeytinli Tulum", d:"Yeşil zeytin ve tulum peyniri.", p:"185.0₺", i:"gozleme.jpg"},
-                {n:"Sucuklu Kaşarlı", d:"Dilim sucuk ve kaşar peyniri.", p:"175.0₺", i:"gozleme.jpg", b:"hot"},
-                {n:"Ispanaklı", d:"Taze ıspanak ve soğanlı harç.", p:"175.0₺", i:"gozleme.jpg", b:"veg"},
-                {n:"Ispanak Kaşarlı", d:"Ispanaklı harç ve kaşar peyniri.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Ispanaklı Tulum", d:"Ispanaklı harç ve tulum peyniri.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Ispanaklı Lor Peynirli", d:"Ispanaklı harç ve lor peyniri.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Ispanaklı Yumurtalı", d:"Ispanaklı harç ve yumurta.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Ispanaklı Yum. Kaşarlı", d:"Ispanak, yumurta ve kaşar karışımı.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Mantarlı Kaşarlı", d:"Sote mantar ve kaşar peyniri.", p:"185.0₺", i:"gozleme.jpg"},
-                {n:"Tavuk Mantarlı", d:"Tavuk parçaları, mantar ve baharatlar.", p:"190.0₺", i:"gozleme.jpg"},
-                {n:"Tavuklu Kaşarlı", d:"Tavuk parçaları ve kaşar peyniri.", p:"185.0₺", i:"gozleme.jpg"},
-                {n:"Kavurmalı Kaşarlı", d:"Dana kavurma ve kaşar peyniri.", p:"220.0₺", i:"gozleme.jpg", b:"hot"},
-                {n:"Kavurmalı Mantarlı", d:"Kavurma, mantar ve kaşar peyniri.", p:"220.0₺", i:"gozleme.jpg"},
-                {n:"Kavurmalı Yumurtalı", d:"Kavurma ve yumurta.", p:"220.0₺", i:"gozleme.jpg"},
-                {n:"Kıymalı", d:"Kavrulmuş kıyma harcı.", p:"220.0₺", i:"gozleme.jpg"},
-                {n:"Kıymalı Tulum", d:"Kıyma harcı ve tulum peyniri.", p:"220.0₺", i:"gozleme.jpg"},
-                {n:"Kıymalı Mantarlı", d:"Kıyma, mantar ve kaşar peyniri.", p:"225.0₺", i:"gozleme.jpg"},
-                {n:"Kıymalı Kaşarlı", d:"Kıyma ve kaşar peyniri.", p:"220.0₺", i:"gozleme.jpg", b:"hot"},
-                {n:"Kıymalı Ispanaklı", d:"Kıyma ve ıspanaklı harç karışımı.", p:"220.0₺", i:"gozleme.jpg"},
-                {n:"Kıymalı Isp. Kaşarlı", d:"Kıyma, ıspanak ve kaşar peyniri.", p:"220.0₺", i:"gozleme.jpg"},
-                {n:"Kıymalı Yumurtalı", d:"Kıyma ve yumurta.", p:"220.0₺", i:"gozleme.jpg"},
-                {n:"Kıymalı Yum. Kaşarlı", d:"Kıyma, yumurta ve kaşar peyniri.", p:"220.0₺", i:"gozleme.jpg"},
-                {n:"Kıymalı Patatesli", d:"Kıyma ve patates harcı.", p:"220.0₺", i:"gozleme.jpg"},
-                {n:"Tarhanalı", d:"Yöresel tarhanalı iç harç.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Tarhanalı Kaşarlı", d:"Tarhana ve kaşar peyniri.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Kıymalı Kabaklı", d:"Kıyma ve kabak rendesi.", p:"220.0₺", i:"gozleme.jpg"},
-                {n:"Ton Balıklı", d:"Ton balığı ve sebzeli harç.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Ton Balıklı Kaşarlı", d:"Ton balığı ve kaşar peyniri.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Köz Patlıcanlı", d:"Közlenmiş patlıcanlı harç.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Köz Patlıcanlı Kaşarlı", d:"Köz patlıcan ve kaşar peyniri.", p:"175.0₺", i:"gozleme.jpg"},
-                {n:"Kabaklı Kaşarlı", d:"Kabak rendesi ve kaşar peyniri.", p:"175.0₺", i:"gozleme.jpg"}
-            ],
-            ikonik: [
-                {n:"Kıtır Milano", d:"Pastırma, kuru domates, mozerella, pesto sos.", p:"280.0₺", i:"gozleme.jpg", b:"chef"},
-                {n:"Pastırma Gurmesi", d:"Pastırma, mozerella, kaşar, kuru domates.", p:"270.0₺", i:"gozleme.jpg"},
-                {n:"Ateşli Tavuk", d:"Acı soslu tavuk, kapya biber, mozerella, kaşar.", p:"260.0₺", i:"gozleme.jpg", b:"hot"},
-                {n:"Deli Toko", d:"Baharatlı tavuk, mantar, cheddar, mısır, turşu.", p:"260.0₺", i:"gozleme.jpg"},
-                {n:"Pizza Gözleme", d:"Sucuk, sosis, salam, zeytin, mısır, mantar, kaşar.", p:"260.0₺", i:"gozleme.jpg"},
-                {n:"Burma Gözleme", d:"Kavurma, yumurta, salam, mantar, kaşar.", p:"260.0₺", i:"gozleme.jpg"},
-                {n:"Anadolu Ateşi", d:"Baharatlı kıyma harcı, mozerella, kaşar.", p:"250.0₺", i:"gozleme.jpg"},
-                {n:"Melek Gözleme", d:"Köz sebzeler, kıyma, mantar, kaşar.", p:"250.0₺", i:"gozleme.jpg"},
-                {n:"Cennet Gözleme", d:"Kıyma, kaşar, bezelye, mısır.", p:"250.0₺", i:"gozleme.jpg", b:"new"},
-                {n:"İzmir Esintisi", d:"Dip sos, sucuk, sosis, salam, kaşar, pesto sos.", p:"250.0₺", i:"gozleme.jpg"},
-                {n:"Margarita", d:"Mozerella peyniri, domates, kekik.", p:"250.0₺", i:"gozleme.jpg"},
-                {n:"Peynirli Hazine", d:"Mozerella, kaşar, beyaz peynir karışımı.", p:"250.0₺", i:"gozleme.jpg"},
-                {n:"Yeşil Rüya", d:"Ispanak, taze otlar, lor, kaşar.", p:"250.0₺", i:"gozleme.jpg"},
-                {n:"Kamp Ateşi", d:"Köz patlıcan, kapya biber, tulum peyniri.", p:"250.0₺", i:"gozleme.jpg"},
-                {n:"Galaksi 35", d:"Kaşar, beyaz peynir, sucuk, köz biber, zeytin ezmesi.", p:"250.0₺", i:"gozleme.jpg"},
-                {n:"Bahar Gözleme", d:"Patates, tavuk, mantar, kaşar, kekik.", p:"230.0₺", i:"gozleme.jpg"},
-                {n:"Gerdan Gözleme", d:"Kaşar, yumurta, sucuk, zeytin, mantar.", p:"230.0₺", i:"gozleme.jpg"},
-                {n:"Yeşil Gözleme", d:"Yeşillikler, mantar, lor, kaşar, Antep peyniri.", p:"220.0₺", i:"gozleme.jpg"}
-            ],
-            klasik_tost: [
-                {n:"Kaşarlı Tost", d:"Erimiş kaşar peynirli tost.", p:"140.0₺", i:"tost.jpg"},
-                {n:"Sucuklu Tost", d:"Dilim sucuklu tost.", p:"140.0₺", i:"tost.jpg"},
-                {n:"Sucuklu Kaşarlı Tost", d:"Sucuk ve kaşar peynirli tost.", p:"140.0₺", i:"tost.jpg", b:"hot"},
-                {n:"Sebzeli Tost", d:"Kaşar, domates ve biberli tost.", p:"140.0₺", i:"tost.jpg"},
-                {n:"Karışık Sebzeli", d:"Sucuk, kaşar, domates ve biber.", p:"150.0₺", i:"tost.jpg"},
-                {n:"Kumru Tost", d:"Sucuk, sosis, salam ve kaşar peyniri.", p:"", i:"tost.jpg"},
-                {n:"Yumurtalı Kaşarlı", d:"Yumurta ve kaşar peyniri.", p:"140.0₺", i:"tost.jpg"},
-                {n:"Yumurtalı Sucuklu", d:"Sucuk ve yumurta.", p:"145.0₺", i:"tost.jpg"},
-                {n:"Karışık Yumurtalı", d:"Sucuk, kaşar ve yumurta.", p:"140.0₺", i:"tost.jpg"},
-                {n:"Beyaz Peynirli", d:"Beyaz peynir ve domates.", p:"140.0₺", i:"tost.jpg"},
-                {n:"Atom Tost", d:"Sucuk, sosis, salam, kaşar, cheddar, yumurta.", p:"200.0₺", i:"tost.jpg", b:"chef"},
-                {n:"Ayvalık Tostu", d:"Sucuk, kaşar, sosis, turşu, domates.", p:"175.0₺", i:"tost.jpg"}
-            ],
-            gurme_tost: [
-                {n:"Kavurmalı Tost", d:"Bol dana kavurma ve eriyen kaşar peyniri.", p:"", i:"tost.jpg", b:"chef"},
-                {n:"Kıymalı Kaşarlı", d:"Soğanla kavrulmuş kıyma ve kaşarın doyurucu lezzeti.", p:"", i:"tost.jpg"},
-                {n:"Tavuk Mantar", d:"Baharatlı tavuk, mantar ve kaşarın uyumu.", p:"", i:"tost.jpg"},
-                {n:"Vali Tost", d:"Sucuk, kaşar, cheddar, domates, biber.", p:"", i:"tost.jpg"},
-                {n:"Mantarlı Tost", d:"Mantar ve kaşar peyniri.", p:"", i:"tost.jpg"},
-                {n:"Vejeteryan Tost", d:"Kaşar, beyaz peynir, domates, biber ve zeytin.", p:"", i:"tost.jpg"},
-                {n:"Akdeniz Tostu", d:"Beyaz peynir, domates, zeytin ve zeytinyağı.", p:"", i:"tost.jpg"},
-                {n:"Afrodit Tost", d:"Cheddar, kaşar, yumurta ve sebzelerle özel lezzet.", p:"", i:"tost.jpg"},
-                {n:"Cheddar's Bombası", d:"Sucuk, kaşar ve bol cheddar peyniri.", p:"", i:"tost.jpg", b:"hot"},
-                {n:"Zeus Tost", d:"Sucuk, kavurma, çift kaşar, cheddar ve sebzeler.", p:"", i:"tost.jpg"},
-                {n:"Sosislim Tost", d:"Sosis, kaşar, cheddar peyniri ve soslar.", p:"", i:"tost.jpg"},
-                {n:"Etobur Tost", d:"Sucuk, salam, sosis, kaşar ve cheddar peyniri.", p:"", i:"tost.jpg"},
-                {n:"Cümbür Cemaat", d:"Şarküteri ürünleri, yumurta ve patates kızartması.", p:"", i:"tost.jpg"},
-                {n:"Manyak Tost", d:"Kaşar, cheddar, kavurma, sucuk, yumurta ve turşu.", p:"", i:"tost.jpg"},
-                {n:"Peynir Şöleni", d:"Mozerella, kaşar, beyaz peynir ve cheddar.", p:"", i:"tost.jpg"},
-                {n:"Kıymalı Yumurtalı", d:"Kıyma, yumurta, kaşar ve baharatlar.", p:"", i:"tost.jpg"},
-                {n:"Mantarlı Yumurtalı", d:"Mantar, yumurta ve kaşar peyniri.", p:"", i:"tost.jpg"},
-                {n:"Haşlanmış Yumurtalı", d:"Kaşar, haşlanmış yumurta, domates ve biber.", p:"", i:"tost.jpg"},
-                {n:"Patatesli Tost", d:"Patates kızartması ve kaşar peyniri.", p:"", i:"tost.jpg"},
-                {n:"Patates Kızartmalı", d:"Patates kızartması, kaşar ve soslar.", p:"", i:"tost.jpg"},
-                {n:"Fıstık Ezmeli", d:"Kaymak ve bol fıstık ezmesi.", p:"", i:"tost.jpg"},
-                {n:"Redbull Tost", d:"Kaymak, fıstık ezmesi, çikolata, bal.", p:"", i:"tost.jpg"},
-                {n:"Çikotost", d:"Nutella, labne peyniri ve yer fıstığı.", p:"", i:"tost.jpg"},
-                {n:"Fındıkla Tostlaş", d:"Fındık ezmesi, labne ve pudra şekeri.", p:"", i:"tost.jpg"},
-                {n:"Pizza Tost", d:"Sucuk, kaşar, mantar, sosis, zeytin, mısır.", p:"", i:"tost.jpg"},
-                {n:"Pastırmalı Tost", d:"Pastırma dilimleri ve kaşar peyniri.", p:"", i:"tost.jpg"},
-                {n:"Pastırmalı Yumurtalı", d:"Pastırma, yumurta ve kaşar peyniri.", p:"", i:"tost.jpg"},
-                {n:"Efe Tostu", d:"Pastırma, kaşar, mozerella ve yumurta.", p:"", i:"tost.jpg"}
-            ],
-            menemen: [
-                {n:"Sade Menemen", d:"Domates, biber ve yumurta.", p:"150.0₺", i:"menemen.jpg"},
-                {n:"Kaşarlı Menemen", d:"Domates, biber, yumurta ve kaşar.", p:"165.0₺", i:"menemen.jpg"},
-                {n:"Sucuklu Menemen", d:"Domates, biber, yumurta ve sucuk.", p:"180.0₺", i:"menemen.jpg"},
-                {n:"Kavurmalı Menemen", d:"Bol dana kavurma ve kaşarlı doyurucu menemen.", p:"230.0₺", i:"menemen.jpg", b:"chef"},
-                {n:"Pastırmalı Menemen", d:"Çemenli pastırma dilimleri ile.", p:"230.0₺", i:"menemen.jpg"},
-                {n:"Sosisli Menemen", d:"Dana sosis dilimleri ile.", p:"190.0₺", i:"menemen.jpg"},
-                {n:"Yeşil Zeytinli", d:"Yarma yeşil zeytin ve kaşarlı.", p:"190.0₺", i:"menemen.jpg"},
-                {n:"Beyaz Peynirli", d:"Ezine peyniri ile hazırlanan menemen.", p:"180.0₺", i:"menemen.jpg"},
-                {n:"Mantarlı Menemen", d:"Kültür mantarı ile.", p:"190.0₺", i:"menemen.jpg"},
-                {n:"Tavuklu Menemen", d:"Tavuk parçaları ile.", p:"190.0₺", i:"menemen.jpg"},
-                {n:"Kıymalı Menemen", d:"Kavrulmuş kıyma ile.", p:"220.0₺", i:"menemen.jpg"}
-            ],
-            sikma: [
-                {n:"Kaşarlı Sıkma", d:"Sıcacık lavaş arası erimiş kaşar peyniri.", p:"115.0₺", i:"sikma.jpg"},
-                {n:"Antep Peynirli Sıkma", d:"Yöresel Antep peynirinin lezzetiyle.", p:"115.0₺", i:"sikma.jpg"},
-                {n:"Beyaz Peynirli Sıkma", d:"Klasik beyaz peynirle hazırlanan hafif sıkma.", p:"115.0₺", i:"sikma.jpg"},
-                {n:"Lor Peynirli Sıkma", d:"Baharatlı lor peyniriyle.", p:"115.0₺", i:"sikma.jpg"},
-                {n:"Kaşarlı Antep Peynirli", d:"İki peynirin lezzet uyumu.", p:"115.0₺", i:"sikma.jpg"},
-                {n:"Patates Püreli Sıkma", d:"Baharatlı patates püresi ile.", p:"115.0₺", i:"sikma.jpg"},
-                {n:"Patatesli Kaşarlı", d:"Patates ve kaşarın doyurucu birlikteliği.", p:"115.0₺", i:"sikma.jpg"},
-                {n:"Yeşil Zeytinli Sıkma", d:"Zeytin severler için özel harç.", p:"130.0₺", i:"sikma.jpg"},
-                {n:"Zeytinli Kaşarlı", d:"Zeytin ve kaşarın lezzetli uyumu.", p:"130.0₺", i:"sikma.jpg"},
-                {n:"Zeytinli Antep Peynirli", d:"Zeytin ve Antep peyniri karışımı.", p:"130.0₺", i:"sikma.jpg"},
-                {n:"Tavuklu Kaşarlı", d:"Tavuk parçaları ve kaşarla hazırlanan dürüm.", p:"140.0₺", i:"sikma.jpg"},
-                {n:"Helvalı Sıkma", d:"Tahin helvasının sıcak lavaşla buluşması.", p:"115.0₺", i:"sikma.jpg"},
-                {n:"Patates Kızartmalı", d:"Çıtır patates kızartması ve soslarla.", p:"115.0₺", i:"sikma.jpg"},
-                {n:"Çoban Dürümü", d:"Haşlanmış yumurta, patates ve taze yeşilliklerle.", p:"130.0₺", i:"sikma.jpg"},
-                {n:"Maydanozlu Peynirli", d:"Bol yeşillikli ve peynirli.", p:"115.0₺", i:"sikma.jpg"},
-                {n:"Domates Dürümlü", d:"Domates, salatalık ve biberle taze sıkma.", p:"115.0₺", i:"sikma.jpg"}
-            ],
-            borek: [
-                {n:"Kıymalı Ay Böreği", d:"İncecik hamur ve bol kıymalı harç.", p:"220.0₺", i:"borek.jpg", b:"hot"},
-                {n:"Kıymalı Kaşarlı", d:"Kıymalı harca eklenen kaşar peyniri.", p:"220.0₺", i:"borek.jpg"},
-                {n:"Tarhanalı Ay Böreği", d:"Yöresel tarhana harcıyla hazırlanan börek.", p:"175.0₺", i:"borek.jpg"},
-                {n:"Tarhanalı Kaşarlı", d:"Tarhana ve kaşarın uyumu.", p:"175.0₺", i:"borek.jpg"},
-                {n:"Yeşil Zeytinli", d:"Zeytinli harçla hazırlanan çıtır börek.", p:"185.0₺", i:"borek.jpg"},
-                {n:"Yeşil Zeytinli Kaşarlı", d:"Zeytin ve kaşar dolgulu börek.", p:"185.0₺", i:"borek.jpg"},
-                {n:"Yeşil Zeytinli Semsek", d:"Yarım ay şeklinde kapatılmış zeytinli börek.", p:"185.0₺", i:"borek.jpg"},
-                {n:"Kaşarlı Zeytinli Semsek", d:"Zeytin ve kaşar dolgulu kapalı börek.", p:"185.0₺", i:"borek.jpg"}
-            ],
-            kahvalti: [
-                {n:"Butik Kahvaltı", d:"Peynir, zeytin, domates, yumurta, bal ve tereyağı tabağı.", p:"190.0₺", i:"butik_kahvalti.jpg"},
-                {n:"Duble Kahvaltı", d:"Zengin çeşit, sigara böreği, pişi ve sınırsız çay ile.", p:"250.0₺", i:"duble_kahvalti.jpg", b:"chef"},
-                {n:"Sigara Böreği Peynirli", d:"8 adet, peynir dolgulu çıtır börek.", p:"100.0₺", i:"sigara_boregi.jpg"},
-                {n:"Sigara Böreği Patatesli", d:"8 adet, patates dolgulu çıtır börek.", p:"100.0₺", i:"sigara_boregi.jpg"},
-                {n:"Yumurtalı Omlet", d:"Çift yumurta ile sade omlet.", p:"115.0₺", i:"yumurtali_omlet.jpg"},
-                {n:"Kaşarlı Omlet", d:"Bol kaşar peynirli omlet.", p:"120.0₺", i:"kasarli_omlet.jpg"},
-                {n:"Sucuklu Omlet", d:"Kasap sucuğu ile hazırlanan omlet.", p:"125.0₺", i:"sucuklu_omlet.jpg"},
-                {n:"Mantarlı Omlet", d:"Taze mantarlı omlet.", p:"135.0₺", i:"mantarli_omlet.jpg"},
-                {n:"Sucuklu Kaşarlı Omlet", d:"Sucuk ve kaşarlı karışık omlet.", p:"130.0₺", i:"sucuklu_kasarli.jpg"},
-                {n:"Kavurmalı Omlet", d:"Bol dana kavurmalı omlet.", p:"180.0₺", i:"kavurmali_omlet.jpg"},
-                {n:"Pastırmalı Omlet", d:"Pastırma, kaşar ve yumurta.", p:"180.0₺", i:"pastirmali_omlet.jpg"},
-                {n:"Pastırmalı Sucuklu", d:"Pastırma, sucuk, kaşar ve yumurta.", p:"200.0₺", i:"pastirmali_sucuklu.jpg"}
-            ],
-            tatli: [
-                {n:"Kaymaklı Fıstıklı", d:"Bol kaymak, şeker ve Antep fıstığı.", p:"290.0₺", i:"tatli.jpg", b:"chef"},
-                {n:"Red Bull Gözleme", d:"Fıstık ezmesi, çikolata, bal ve kaymak karışımı.", p:"290.0₺", i:"gozleme.jpg"},
-                {n:"Fıstık Ezmeli", d:"Bol fıstık ezmesi, kaymak ve toz fıstık.", p:"270.0₺", i:"gozleme.jpg"},
-                {n:"Çikolatalı Köy Katmeri", d:"Katmer keyfinin çikolatalı hali.", p:"260.0₺", i:"tatli.jpg"},
-                {n:"Çikolatalı Labneli", d:"Çikolata ve labnenin hafifliği, fıstıkla süslendi.", p:"230.0₺", i:"gozleme.jpg"},
-                {n:"Çikolatalı Gözleme", d:"İçi akışkan çikolata dolu sıcak tatlı.", p:"200.0₺", i:"gozleme.jpg"}
-            ],
-            icecek: [
-                {n:"Çay", d:"Çay", p:"20.0₺", i:"cay.jpg"},
-                {n:"Fincan Çay", d:"Fincan Çay", p:"30.0₺", i:"fincan_cay.jpg"},
-                {n:"Türk Kahvesi", d:"Türk Kahvesi", p:"70.0₺", i:"turk_kahvesi.jpg"},
-                {n:"Nescafe", d:"Nescafe", p:"40.0₺", i:"nescafe.jpg"},
-                {n:"Soda", d:"Sade Soda", p:"25.0₺", i:"soda.jpg"},
-                {n:"Meyveli Soda", d:"Meyveli Soda", p:"30.0₺", i:"meyveli_soda.jpg"},
-                {n:"Ayran", d:"Ayran", p:"30.0₺", i:"ayran.jpg"},
-                {n:"Su", d:"Su", p:"10.0₺", i:"su.jpg"}
-            ]
-        };
-
-        function addToCart(name, priceStr) {
-            if(!priceStr) return; // Fiyatı olmayan ürünü sepete ekleme
-            
-            let price = parseFloat(priceStr.replace('₺', '').trim());
-            totalAmount += price;
-            totalCount++;
-            
-            updateCartDisplay();
-        }
-
-        function updateCartDisplay() {
-            const cartBar = document.getElementById('cart-bar');
-            const cartCountEl = document.getElementById('cart-count');
-            const cartTotalEl = document.getElementById('cart-total');
-
-            if(totalCount > 0) {
-                cartBar.style.display = 'flex';
-                cartCountEl.innerText = `${totalCount} Ürün Seçildi`;
-                cartTotalEl.innerText = `${totalAmount.toFixed(1)}₺`;
-            } else {
-                cartBar.style.display = 'none';
-            }
-        }
-
-        function resetCart() {
-            totalAmount = 0;
-            totalCount = 0;
-            updateCartDisplay();
-        }
-
         function openCat(cat) {
             document.getElementById('home-screen').style.display = 'none';
             document.getElementById('detail-screen').style.display = 'block';
@@ -489,6 +271,9 @@
                     if (cat === 'kahvalti') fallbackImg = 'kahvalti.jpg';
                     if (cat === 'sokak') fallbackImg = 'sokak.jpg';
                     if (cat === 'diger') fallbackImg = 'logo.png';
+                    // Yeni eklenen kategoriler için fallback
+                    if (cat === 'yeni_lezzetler') fallbackImg = 'sikma_tost.jpg';
+                    if (cat === 'bazlama_tost') fallbackImg = 'bazlama_tost.jpg';
 
                     list.innerHTML += `
                     <div class="item">
@@ -551,6 +336,247 @@
                 closeCat();
             }
         }
+
+        const data = {
+            yeni_lezzetler: [
+                // Yeni Eklenen Sıkma Tostlar (Görseli: sikma_tost.jpg)
+                {n:"Sıkma Ekmeğinde Kaşarlı Tost", d:"Ketçap, pul biber.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Sucuklu Tost", d:"Sucuk, ketçap, mayonez.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Sucuklu Kaşarlı", d:"Kaşar, sucuk, ketçap, mayonez.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Sebzeli Tost", d:"Kaşar, domates, çarliston biber.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Karışık Sebzeli", d:"Sucuk, kaşar, domates, biber, ketçap.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Kumru Tost", d:"Sucuk, sosis, salam, kaşar, ketçap, mayonez.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Yumurtalı Kaşarlı", d:"Yumurta, kaşar, ketçap, mayonez.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Yumurtalı Sucuklu", d:"Sucuk, yumurta, ketçap.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Karışık Yumurtalı", d:"Sucuk, kaşar, yumurta, ketçap.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Beyaz Peynirli", d:"Beyaz peynir, domates, çarliston biber, pul biber.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Atom Tost", d:"Sucuk, sosis, salam, kaşar, cheddar, yumurta, domates, biber, ketçap, mayonez.", p:"", i:"sikma_tost.jpg", b:"new"},
+                {n:"Sıkma Ekmeğinde Ayvalık Tostu", d:"Sucuk, kaşar, cheddar, sosis, domates, biber, salatalık turşusu, ketçap, mayonez.", p:"", i:"sikma_tost.jpg", b:"new"},
+                // Avokadolu Tostlar (En Alta Taşındı) - Görsel: tost.jpg
+                {n:"Ballı Tarçınlı Avokado Tost", d:"Tam buğday ekmeğine; Avokado, ezilmiş ceviz, lor peynir, tarçın, bal.", p:"", i:"tost.jpg", b:"new"},
+                {n:"Peynir Domates ve Avokadulu Tost", d:"Tam buğday ekmeğine; Avokado, beyaz peynir, domates, çarliston biber, kekik, çörek otu.", p:"", i:"tost.jpg", b:"new"},
+                {n:"Sarımsaklı Avokado Tost", d:"Tam buğday ekmeğine; Avokado, rende sarımsak, limon suyu, karabiber, tuz, pul biber, kaşar, çörek otu.", p:"", i:"tost.jpg", b:"new"}
+            ],
+            bazlama_tost: [
+                {n:"Sucuklu Kaşarlı Bazlama Tost", d:"140 gr bazlama ekmeği, sucuk, kaşar, özel dip sos, pul biber.", p:"180.0₺", i:"bazlama_tost.jpg"},
+                {n:"Kavurmalı Bazlama Tost", d:"140 gr bazlama ekmeği, kaşar, dana kavurma, özel dip sos, kekik, pul biber.", p:"200.0₺", i:"bazlama_tost.jpg"},
+                {n:"Kavurmalı Yumurtalı Bazlama", d:"140 gr bazlama ekmeği, kaşar, dana kavurma, yumurta, özel dip sos, kekik, pul biber.", p:"210.0₺", i:"bazlama_tost.jpg"},
+                {n:"Cıvık Bazlama Tost", d:"140 gr bazlama ekmeği, kaşar, dana kavurma, sucuk, sosis, özel dip sos, kekik, pul biber.", p:"230.0₺", i:"bazlama_tost.jpg"},
+                {n:"Doyuyo Bazlama Tost", d:"140 gr bazlama ekmeği, kaşar, dana kavurma, sucuk, sosis, yumurta, cheddar peyniri, özel dip sos, kekik, pul biber.", p:"250.0₺", i:"bazlama_tost.jpg", b:"chef"},
+                {n:"Peynir Şöleni Bazlama", d:"140 gr bazlama ekmeği, özel dip sos, kaşar, beyaz peynir, cheddar, mozzarella, pul biber, kekik.", p:"200.0₺", i:"bazlama_tost.jpg"},
+                {n:"Sebzeli Bazlama Tost", d:"140 gr bazlama ekmeği, kaşar, beyaz peynir, domates, çarliston biber, pul biber, kekik.", p:"190.0₺", i:"bazlama_tost.jpg"},
+                {n:"Vejeteryan Bazlama Tost", d:"140 gr bazlama ekmeği, kaşar, beyaz peynir, domates, çarliston biber, salamura zeytin, zeytinyağı, pul biber, kekik.", p:"190.0₺", i:"bazlama_tost.jpg", b:"veg"},
+                {n:"Akdeniz Bazlama Tost", d:"140 gr bazlama ekmeği, kaşar, beyaz peynir, domates, çarliston biber, salamura zeytin, mevsim yeşillik, zeytinyağı, çörek otu, pul biber, kekik.", p:"200.0₺", i:"bazlama_tost.jpg"}
+            ],
+            klasik_tost: [
+                {n:"Kaşarlı Tost", d:"Ketçap, pul biber.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Sucuklu Tost", d:"Sucuk, ketçap, mayonez.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Sucuklu Kaşarlı Tost", d:"Kaşar, sucuk, ketçap, mayonez.", p:"140.0₺", i:"tost.jpg", b:"hot"},
+                {n:"Sebzeli Tost", d:"Kaşar, domates, çarliston biber.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Karışık Sebzeli", d:"Sucuk, kaşar, domates, biber, ketçap.", p:"150.0₺", i:"tost.jpg"},
+                {n:"Kumru Tost", d:"Sucuk, sosis, salam, kaşar, ketçap, mayonez.", p:"", i:"tost.jpg"},
+                {n:"Yumurtalı Kaşarlı Tost", d:"Yumurta, kaşar, ketçap, mayonez.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Yumurtalı Sucuklu Tost", d:"Sucuk, yumurta, ketçap.", p:"145.0₺", i:"tost.jpg"},
+                {n:"Karışık Yumurtalı Tost", d:"Sucuk, kaşar, yumurta, ketçap.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Beyaz Peynirli Tost", d:"Beyaz peynir, domates, çarliston biber, pul biber.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Atom Tost", d:"Sucuk, sosis, salam, kaşar, cheddar, yumurta, domates, biber, ketçap, mayonez.", p:"200.0₺", i:"tost.jpg", b:"chef"},
+                {n:"Ayvalık Tostu", d:"Sucuk, kaşar, cheddar, sosis, domates, biber, salatalık turşusu, ketçap, mayonez.", p:"175.0₺", i:"tost.jpg"}
+            ],
+            gurme_tost: [
+                {n:"Kavurmalı Tost", d:"Dana kavurma, kaşar, pul biber, karabiber, az ketçap.", p:"200.0₺", i:"tost.jpg", b:"chef"},
+                {n:"Kıymalı Kaşarlı Tost", d:"Soğanla sotelenmiş kıyma, kaşar, pul biber, karabiber, kekik.", p:"200.0₺", i:"tost.jpg"},
+                {n:"Tavuk Mantar", d:"Baharat ve kapya biberle harmanlanmış tavuk, mantar, kaşar, kekik, salça.", p:"190.0₺", i:"tost.jpg"},
+                {n:"Vali Tost", d:"Sucuk, çift kaşar, cheddar, domates, biber, salça, kekik.", p:"190.0₺", i:"tost.jpg"},
+                {n:"Mantarlı Tost", d:"Mantar, kaşar, pul biber, kekik, ketçap.", p:"180.0₺", i:"tost.jpg"},
+                {n:"Vejeteryan Tost", d:"Kaşar, beyaz peynir, domates, çarliston biber, siyah zeytin, pul biber.", p:"180.0₺", i:"tost.jpg", b:"veg"},
+                {n:"Akdeniz Tostu", d:"Beyaz peynir, kaşar, domates, yeşil biber, zeytin, kuru kekik, pul biber, karabiber, mevsim yeşillik, az zeytinyağı.", p:"190.0₺", i:"tost.jpg"},
+                {n:"Afrodit Tost", d:"Kaşar, cheddar, yumurta, domates, çarliston biber, çörek otu, salça, kekik.", p:"190.0₺", i:"tost.jpg"},
+                {n:"Cheddar's Bombası", d:"Sucuk, kaşar, 4 dilim cheddar peyniri, ketçap.", p:"180.0₺", i:"tost.jpg", b:"hot"},
+                {n:"Zeus Tost", d:"Sucuk, kavurma, çift kaşar, cheddar, domates, çarliston biber, salça, kekik.", p:"210.0₺", i:"tost.jpg"},
+                {n:"Sosislim Tost", d:"Sosis, kaşar, cheddar peyniri, ketçap, mayonez.", p:"180.0₺", i:"tost.jpg"},
+                {n:"Etobur Tost", d:"Sucuk, salam, sosis, kaşar, cheddar peyniri, ketçap, mayonez.", p:"190.0₺", i:"tost.jpg"},
+                {n:"Cümbür Cemaat Tost", d:"Sucuk, salam, sosis, kaşar, cheddar, yumurta, patates kızartması, ketçap, mayonez.", p:"200.0₺", i:"tost.jpg"},
+                {n:"Manyak Tost", d:"Kaşar, cheddar, kavurma, sucuk, yumurta, kornişon turşu, salça, kekik.", p:"210.0₺", i:"tost.jpg"},
+                {n:"Peynir Şöleni Tost", d:"Mozzarella, kaşar, beyaz peynir, cheddar, bir kaşık bal, kekik.", p:"200.0₺", i:"tost.jpg"},
+                {n:"Kıymalı Yumurtalı", d:"Kıyma, yumurta, kaşar, pul biber, kekik.", p:"210.0₺", i:"tost.jpg"},
+                {n:"Mantarlı Yumurtalı", d:"Mantar, yumurta, kaşar, ketçap, mayonez.", p:"190.0₺", i:"tost.jpg"},
+                {n:"Haşlanmış Yumurtalı", d:"Kaşar, haşlanmış yumurta, domates, biber, yeşil soğan, pul biber, salça, kekik.", p:"160.0₺", i:"tost.jpg"},
+                {n:"Patatesli Tost", d:"Patates kızartması, kaşar, pul biber, ketçap, mayonez.", p:"150.0₺", i:"tost.jpg"},
+                {n:"Patates Kızartmalı Tost", d:"Patates kızartması, kaşar, pul biber, ketçap, mayonez.", p:"140.0₺", i:"tost.jpg"},
+                {n:"Fıstık Ezmeli Tost", d:"Kaymak, fıstık ezmesi, pudra şekeri.", p:"250.0₺", i:"tost.jpg"},
+                {n:"Redbull Tost", d:"Kaymak, fıstık ezmesi, çikolata, bal, çekilmiş fıstık, pudra şekeri.", p:"280.0₺", i:"tost.jpg"},
+                {n:"Çikotost", d:"Nutella, labne peyniri, yer fıstığı taneleri, pudra şekeri.", p:"180.0₺", i:"tost.jpg"},
+                {n:"Fındıkla Tostlaş", d:"Fındık ezmesi, pudra şekeri, labne peyniri, yer fıstığı tanecikleri.", p:"180.0₺", i:"tost.jpg"},
+                {n:"Pizza Tost", d:"Dip sos, sucuk, kaşar, mantar, sosis, zeytin, mısır, cheddar, salam, biber, domates, mayonez.", p:"200.0₺", i:"tost.jpg"},
+                {n:"Pastırmalı Tost", d:"Pastırma dilimleri, kaşar, salça, az kekik.", p:"200.0₺", i:"tost.jpg"},
+                {n:"Pastırmalı Yumurtalı", d:"Pastırma dilimleri, kaşar, yumurta, salça, az kekik.", p:"210.0₺", i:"tost.jpg"},
+                {n:"Efe Tostu", d:"Pastırma dilimleri, kaşar, mozzarella, dip sos, yumurta, pul biber, karabiber, kekik.", p:"230.0₺", i:"tost.jpg"}
+            ],
+            menemen: [
+                {n:"Sade Menemen", d:"Domates, çift yumurta, baharat.", p:"150.0₺", i:"menemen.jpg"},
+                {n:"Kaşarlı Menemen", d:"Domates, çift yumurta, kaşar.", p:"165.0₺", i:"menemen.jpg"},
+                {n:"Sucuklu Menemen", d:"Domates, çift yumurta, kaşar, sucuk.", p:"180.0₺", i:"menemen.jpg"},
+                {n:"Kavurmalı Menemen", d:"Domates, çift yumurta, kaşar, kavurma.", p:"230.0₺", i:"menemen.jpg", b:"chef"},
+                {n:"Pastırmalı Menemen", d:"Domates, çift yumurta, kaşar, pastırma.", p:"230.0₺", i:"menemen.jpg"},
+                {n:"Sosisli Menemen", d:"Domates, çift yumurta, kaşar, sosis.", p:"190.0₺", i:"menemen.jpg"},
+                {n:"Yarma Yeşil Zeytinli", d:"Domates, çift yumurta, kaşar, yeşil zeytin.", p:"190.0₺", i:"menemen.jpg"},
+                {n:"Beyaz Peynirli Menemen", d:"Domates, çift yumurta, kaşar, sucuk.", p:"180.0₺", i:"menemen.jpg"},
+                {n:"Mantarlı Menemen", d:"Domates, çift yumurta, kaşar, mantar.", p:"190.0₺", i:"menemen.jpg"},
+                {n:"Tavuklu Menemen", d:"Domates, çift yumurta, kaşar, tavuk göğsü.", p:"190.0₺", i:"menemen.jpg"},
+                {n:"Kıymalı Menemen", d:"Domates, çift yumurta, kaşar, kıyma.", p:"220.0₺", i:"menemen.jpg"}
+            ],
+            sikma: [
+                {n:"Kaşarlı Sıkma", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Antep Peynirli Sıkma", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Beyaz Peynirli Sıkma", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Terbiyeli Lor Peynirli", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Kaşarlı Antep Peynirli", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Patates Püreli Sıkma", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Patates Püreli Kaşarlı", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Yeşil Zeytinli Sıkma", d:"", p:"135.0₺", i:"sikma.jpg"},
+                {n:"Yeşil Zeytinli Kaşarlı", d:"", p:"135.0₺", i:"sikma.jpg"},
+                {n:"Yeşil Zeytinli Antep", d:"", p:"135.0₺", i:"sikma.jpg"},
+                {n:"Tavuklu Kaşarlı Sıkma", d:"Tavuk, kaşar, piyaz, domates, taze biber.", p:"145.0₺", i:"sikma.jpg"},
+                {n:"Helvalı Sıkma", d:"", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Patates Kızartmalı", d:"Patates, kaşar, pul biber, ketçap, mayonez.", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Çoban Dürümü", d:"Haşlanmış yumurta, patates, kaşar, maydanoz, domates, biber, soslar.", p:"135.0₺", i:"sikma.jpg"},
+                {n:"Maydanozlu Peynirli", d:"Kaşar, Antep peyniri, maydanoz, pul biber.", p:"120.0₺", i:"sikma.jpg"},
+                {n:"Domates Dürümlü", d:"Domates, salatalık, taze biber, kaşar, Antep peyniri.", p:"120.0₺", i:"sikma.jpg"}
+            ],
+            gozleme: [
+                {n:"Kaşarlı Gözleme", d:"", p:"175.0₺", i:"gozleme.jpg", b:"hot"},
+                {n:"Antep Peynirli Gözleme", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Beyaz Peynirli Gözleme", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Terbiyeli Lorlu Gözleme", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Tulum Peynirli Gözleme", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Tulum Peynirli Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Kaşarlı Antep Peynirli", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Kaşarlı Yumurtalı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Antep Peynirli Yumurtalı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Patatesli Gözleme (Terbiyeli)", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Patatesli Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg", b:"chef"},
+                {n:"Patatesli Antep Peynirli", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Patatesli Lor Peynirli", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Yeşil Zeytinli", d:"", p:"185.0₺", i:"gozleme.jpg", b:"veg"},
+                {n:"Yeşil Zeytinli Kaşarlı", d:"", p:"185.0₺", i:"gozleme.jpg"},
+                {n:"Yeşil Zeytinli Antep", d:"", p:"185.0₺", i:"gozleme.jpg"},
+                {n:"Yeşil Zeytinli Lorlu", d:"", p:"185.0₺", i:"gozleme.jpg"},
+                {n:"Yeşil Zeytinli Tulum", d:"", p:"185.0₺", i:"gozleme.jpg"},
+                {n:"Sucuklu Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg", b:"hot"},
+                {n:"Ispanaklı Gözleme", d:"", p:"175.0₺", i:"gozleme.jpg", b:"veg"},
+                {n:"Ispanak Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Ispanaklı Tulum", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Ispanaklı Lor Peynirli", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Ispanaklı Yumurtalı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Ispanaklı Yum. Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Mantarlı Kaşarlı", d:"", p:"185.0₺", i:"gozleme.jpg"},
+                {n:"Tavuk Mantarlı", d:"Tavuk, Mantar, Kaşar.", p:"190.0₺", i:"gozleme.jpg"},
+                {n:"Tavuklu Kaşarlı", d:"", p:"185.0₺", i:"gozleme.jpg"},
+                {n:"Kavurmalı Kaşarlı", d:"", p:"220.0₺", i:"gozleme.jpg", b:"hot"},
+                {n:"Kavurmalı Mantarlı", d:"Kavurma, Mantar, Kaşar.", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kavurmalı Yumurtalı", d:"Kavurma, Yumurta, Kaşar.", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Gözleme", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Tulum", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Mantarlı", d:"Kıyma, Mantar, Kaşar.", p:"225.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Kaşarlı", d:"", p:"220.0₺", i:"gozleme.jpg", b:"hot"},
+                {n:"Kıymalı Ispanaklı", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Isp. Kaşarlı", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Yumurtalı", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Yum. Kaşarlı", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Patatesli", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Tarhanalı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Tarhanalı Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Kıymalı Kabaklı", d:"", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Ton Balıklı", d:"Ton balığı, mantar, mevsim yeşillik.", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Ton Balıklı Kaşarlı", d:"Ton balığı, kaşar, mantar, mevsim yeşillik.", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Köz Patlıcanlı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Köz Patlıcanlı Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg"},
+                {n:"Kabaklı Kaşarlı", d:"", p:"175.0₺", i:"gozleme.jpg"}
+            ],
+            ikonik: [
+                {n:"Cennet Gözleme", d:"Kıyma, mantar, bezelye, mısır, kaşar.", p:"250.0₺", i:"gozleme.jpg", b:"new"},
+                {n:"İzmir Esintisi", d:"Dip sos, sucuk, kaşar, sosis, salam.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Melek Gözleme", d:"Köz patlıcan, pişmiş domates, biber, kıyma, mantar, kaşar.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Gerdan Gözleme", d:"Yumurta, sucuk, siyah zeytin, kaşar, mantar.", p:"230.0₺", i:"gozleme.jpg"},
+                {n:"Bahar Gözleme", d:"Patates, tavuk, mantar, kaşar, kekik.", p:"230.0₺", i:"gozleme.jpg"},
+                {n:"Burma Gözleme", d:"Kavurma, yumurta, salam, kaşar, mozzarella, mantar.", p:"260.0₺", i:"gozleme.jpg"},
+                {n:"Yeşil Gözleme", d:"Mevsim yeşillikleri, mantar, kaşar, lor, Antep peyniri, pul biber, zeytinyağı.", p:"220.0₺", i:"gozleme.jpg"},
+                {n:"Pizza Gözleme", d:"Dip sos, kaşar, mozzarella, sucuk, sosis, salam, mısır, mantar, zeytin, kapya biber.", p:"260.0₺", i:"gozleme.jpg"},
+                {n:"Ateşli Tavuk", d:"Tavuk göğsü, biber/domates salçası, acı toz biber, kapya, sarımsak, kekik, mozzarella, kaşar (Acı sos ile).", p:"260.0₺", i:"gozleme.jpg", b:"hot"},
+                {n:"Pastırma Gurmesi", d:"Pastırma dilimleri, kuru domates, mozzarella, kaşar, kekik.", p:"270.0₺", i:"gozleme.jpg"},
+                {n:"Margarita Gözleme", d:"Özel dip sos, kuru kekik, mozzarella peyniri, küp domates.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Peynirli Hazine", d:"Mozzarella, kaşar, beyaz peynir, maydanoz, hafif pul biber, tereyağı.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Yeşil Rüya", d:"Ispanak, dereotu, maydanoz, yeşil soğan, lor, zeytinyağı, karabiber, pul biber.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Anadolu Ateşi", d:"Kıyma, kaşar, mozzarella, biber salçası, sarımsak, kapya, soğan, kimyon, kırmızı biber.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Deli Toko", d:"Tavuk, mantar, taco baharatı, cheddar, mozzarella, mısır, kornişon turşu.", p:"260.0₺", i:"gozleme.jpg"},
+                {n:"Kıtır Milano", d:"Dilimli pastırma, kurutulmuş domates, mozzarella, pesto sosu, taze roka.", p:"280.0₺", i:"gozleme.jpg", b:"chef"},
+                {n:"Kamp Ateşi", d:"Közlenmiş patlıcan, kapya biber, kuru soğan, tulum peyniri, zeytinyağı, baharat.", p:"250.0₺", i:"gozleme.jpg"},
+                {n:"Galaksi 35", d:"Kaşar, beyaz peynir, ince sucuk, köz kapya, maydanoz, zeytin ezmesi.", p:"250.0₺", i:"gozleme.jpg"}
+            ],
+            kahvalti: [
+                {n:"Butik Kahvaltı Tabağı", d:"Peynir, zeytin, domates, salatalık, haşlanmış yumurta, salam, bal, tereyağı.", p:"190.0₺", i:"butik_kahvalti.jpg"},
+                {n:"Duble Kahvaltı Tabağı", d:"Peynir, zeytin, domates, salatalık, haşlanmış yumurta, salam, bal kaymak, tereyağı, patates kızartması, sigara böreği, pişi, reçel, fındık ezmesi.", p:"250.0₺", i:"duble_kahvalti.jpg", b:"chef"},
+                {n:"Sigara Böreği Peynirli", d:"8 Adet.", p:"100.0₺", i:"sigara_boregi.jpg"},
+                {n:"Sigara Böreği Patatesli", d:"8 Adet.", p:"100.0₺", i:"sigara_boregi.jpg"},
+                {n:"Yeşil Zeytinli Semsek", d:"Kapalı zeytinli börek.", p:"185.0₺", i:"borek.jpg"},
+                {n:"Kaşarlı Zeytinli Semsek", d:"Zeytin ve kaşarlı.", p:"185.0₺", i:"borek.jpg"},
+                {n:"Yumurtalı Omlet", d:"Çift yumurta ile sade.", p:"115.0₺", i:"yumurtali_omlet.jpg"},
+                {n:"Kaşarlı Omlet", d:"", p:"120.0₺", i:"kasarli_omlet.jpg"},
+                {n:"Sucuklu Omlet", d:"", p:"125.0₺", i:"sucuklu_omlet.jpg"},
+                {n:"Mantarlı Omlet", d:"", p:"135.0₺", i:"mantarli_omlet.jpg"},
+                {n:"Sucuklu Kaşarlı Omlet", d:"", p:"130.0₺", i:"sucuklu_kasarli.jpg"},
+                {n:"Kavurmalı Omlet", d:"", p:"180.0₺", i:"kavurmali_omlet.jpg"},
+                {n:"Pastırmalı Omlet", d:"Pastırma, kaşar, yumurta.", p:"180.0₺", i:"pastirmali_omlet.jpg"},
+                {n:"Pastırmalı Sucuklu", d:"Pastırma, sucuk, kaşar, yumurta.", p:"200.0₺", i:"pastirmali_sucuklu.jpg"}
+            ],
+            tatli: [
+                {n:"Köy Katmeri", d:"Kaymak, şeker, fıstık, tereyağı.", p:"290.0₺", i:"tatli.jpg", b:"chef"},
+                {n:"Çikolatalı Katmer", d:"Kaymak, fıstık, çikolata, tereyağı.", p:"260.0₺", i:"tatli.jpg"},
+                {n:"Çikolatalı Gözleme", d:"Çikolata, pudra şekeri, yer fıstığı taneleri.", p:"200.0₺", i:"gozleme.jpg"},
+                {n:"Çikolatalı Labneli", d:"Çikolata, labne peynir, pudra şekeri, yer fıstığı taneleri.", p:"230.0₺", i:"gozleme.jpg"},
+                {n:"Fıstık Ezmeli Gözleme", d:"Fıstık ezmesi, kaymak, toz fıstık.", p:"270.0₺", i:"gozleme.jpg"},
+                {n:"Redbull Gözleme", d:"Fıstık ezmesi, kaymak, çikolata, bal, çekilmiş fıstık, yer fıstığı.", p:"290.0₺", i:"gozleme.jpg"}
+            ],
+            borek: [
+                {n:"Kıymalı Ay Böreği", d:"", p:"220.0₺", i:"borek.jpg", b:"hot"},
+                {n:"Kıymalı Kaşarlı", d:"", p:"220.0₺", i:"borek.jpg"},
+                {n:"Tarhanalı Ay Böreği", d:"", p:"175.0₺", i:"borek.jpg"},
+                {n:"Tarhanalı Kaşarlı", d:"", p:"175.0₺", i:"borek.jpg"},
+                {n:"Yeşil Zeytinli Ay Böreği", d:"", p:"185.0₺", i:"borek.jpg"},
+                {n:"Yeşil Zeytinli Kaşarlı", d:"", p:"185.0₺", i:"borek.jpg"}
+            ],
+            icecek: [
+                {n:"Çay", d:"", p:"20.0₺", i:"cay.jpg"},
+                {n:"Duble Çay", d:"", p:"35.0₺", i:"fincan_cay.jpg"},
+                {n:"Nescafe", d:"", p:"50.0₺", i:"nescafe.jpg"},
+                {n:"Türk Kahvesi", d:"", p:"70.0₺", i:"turk_kahvesi.jpg"},
+                {n:"Cola (330ml)", d:"", p:"60.0₺", i:"cola.jpg"},
+                {n:"Pepsi (330ml)", d:"", p:"60.0₺", i:"pepsi.jpg"},
+                {n:"Fanta (330ml)", d:"", p:"60.0₺", i:"fanta.jpg"},
+                {n:"Soğuk Çay (330ml)", d:"", p:"60.0₺", i:"ice_tea.jpg"},
+                {n:"Brox Cola", d:"", p:"40.0₺", i:"brox.jpg"},
+                {n:"Brox Portakal", d:"", p:"40.0₺", i:"brox.jpg"},
+                {n:"Brox Orman Meyveli", d:"", p:"40.0₺", i:"brox.jpg"},
+                {n:"Şalgam", d:"", p:"35.0₺", i:"salgam.jpg"},
+                {n:"Ayran", d:"", p:"40.0₺", i:"ayran.jpg"},
+                {n:"Soda", d:"", p:"25.0₺", i:"soda.jpg"},
+                {n:"Meyveli Soda", d:"", p:"35.0₺", i:"meyveli_soda.jpg"},
+                {n:"Gazoz", d:"", p:"40.0₺", i:"gazoz.jpg"},
+                {n:"Su", d:"", p:"10.0₺", i:"su.jpg"}
+            ],
+            sokak: [
+                {n:"Cızbız Köfte", d:"Izgara köfte, domates, biber ve yeşillik ile servis edilir.", p:"", i:"cizbiz_kofte.jpg"},
+                {n:"Kaşarlı Cızbız Köfte", d:"İçinde erimiş kaşar peyniri bulunan ızgara köfte.", p:"", i:"cizbiz_kofte.jpg"},
+                {n:"Hamburger", d:"Klasik hamburger ekmeği, hamburger köftesi, domates ve turşu.", p:"", i:"hamburger.jpg"}
+            ],
+            diger: [
+                {n:"Patates Kızartması", d:"Çıtır parmak patates kızartması.", p:"", i:"patates_kizartmasi.jpg"},
+                {n:"Bazlama Ekmeği", d:"Yumuşak, el yapımı bazlama ekmeği.", p:"", i:"bazlama_ekmegi.jpg"},
+                {n:"Ketçap", d:"Yemeğinizin yanına ilave paket ketçap.", p:"", i:"ketcap.jpg"},
+                {n:"Mayonez", d:"Yemeğinizin yanına ilave paket mayonez.", p:"", i:"mayonez.jpg"},
+                {n:"Acı Sos", d:"Özel yapım acı sos.", p:"", i:"aci_sos.jpg"}
+            ]
+        };
     </script>
 </body>
 </html>
