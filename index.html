@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bİ MOLA | Dijital Menü</title>
-    <link href=<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -18,56 +18,72 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif; /* Ana yazı tipi Montserrat yapıldı */
             background-color: var(--bg);
             margin: 0; padding: 0;
             padding-bottom: 140px;
         }
 
         /* --- HEADER --- */
-        .top-header { text-align: center; padding: 30px 20px 10px; }
-        .brand-name .brand-name { font-family: 'Dancing Script', cursive; font-size: 2.8rem; font-weight: 700; color: var(--primary); display: block; text-transform: none; }
-        .sub-title { font-size: 0.9rem; color: var(--secondary); font-weight: 600; }
+        .top-header { text-align: center; padding: 35px 20px 10px; }
+        
+        /* Marka ismi tasarımı düzeltildi */
+        .brand-name { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 3rem; 
+            font-weight: 700; 
+            color: var(--primary); 
+            display: block; 
+            text-transform: none; 
+            line-height: 1.1;
+        }
+        
+        .sub-title { 
+            font-size: 0.85rem; 
+            color: var(--secondary); 
+            font-weight: 700; 
+            letter-spacing: 1px;
+            display: block;
+            margin-top: 5px;
+        }
 
         .logo-container { display: flex; justify-content: center; margin-bottom: 20px; }
         .main-logo { width: 140px; height: 140px; border-radius: 50%; border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); background: #fff; object-fit: contain; }
 
         /* --- ARAMA --- */
         .search-box { margin: 0 20px 20px; position: relative; }
-        .search-input { width: 100%; padding: 12px 15px 12px 45px; border-radius: 25px; border: 2px solid #fff; outline: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .search-input { 
+            width: 100%; padding: 12px 15px 12px 45px; border-radius: 25px; border: 2px solid #fff; 
+            outline: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); font-family: 'Montserrat', sans-serif;
+        }
         .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #999; }
 
-        /* --- GRID KATEGORİLER (ANA EKRAN) --- */
-        .section-title { text-align: center; font-size: 1.2rem; color: var(--secondary); margin-bottom: 15px; font-weight: 800; }
+        /* --- GRID KATEGORİLER --- */
+        .section-title { text-align: center; font-size: 1.1rem; color: var(--secondary); margin-bottom: 15px; font-weight: 800; letter-spacing: 0.5px; }
         
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px; max-width: 800px; margin: 0 auto; }
         
         .cat-card { 
             background: var(--card-bg); border-radius: 15px; padding: 15px 10px; 
             text-align: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 140px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 145px;
             border: 2px solid transparent; transition: all 0.2s;
         }
         .cat-card:active { transform: scale(0.98); border-color: var(--primary); }
         .cat-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
-        .cat-card span { font-size: 0.85rem; font-weight: 800; color: var(--secondary); text-transform: uppercase; }
-        .full-width { grid-column: span 2; }
+        .cat-card span { font-size: 0.75rem; font-weight: 800; color: var(--secondary); text-transform: uppercase; }
 
         /* --- DETAY EKRANI --- */
         #detail-screen { display: none; background: #f9f9f9; min-height: 100vh; padding-bottom: 140px; position: absolute; top: 0; left: 0; width: 100%; z-index: 500; }
-        
-        .detail-header { 
-            position: sticky; top: 0; background: #fff; padding: 15px; 
-            display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 600;
-        }
+        .detail-header { position: sticky; top: 0; background: #fff; padding: 15px; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 600; }
         .back-btn { font-size: 1.5rem; border: none; background: none; margin-right: 15px; color: var(--secondary); cursor: pointer; }
-        #cat-title { font-size: 1.2rem; font-weight: 800; color: var(--secondary); }
+        #cat-title { font-size: 1.1rem; font-weight: 800; color: var(--secondary); }
 
         .item-list { padding: 20px; }
         .item { background: #fff; border-radius: 15px; padding: 15px; margin-bottom: 15px; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.03); position: relative; overflow: hidden; }
         .item img { width: 90px; height: 90px; border-radius: 10px; object-fit: cover; margin-right: 15px; }
         .item-info { flex: 1; }
-        .item h3 { margin: 0 0 5px; font-size: 1rem; color: var(--secondary); font-weight: 700; }
+        .item h3 { margin: 0 0 5px; font-size: 0.95rem; color: var(--secondary); font-weight: 700; }
         .item p { margin: 0 0 10px; font-size: 0.75rem; color: #666; font-style: italic; line-height: 1.2; }
         .item-footer { display: flex; justify-content: space-between; align-items: center; }
         .price { font-weight: 800; color: var(--primary); font-size: 1.1rem; }
@@ -76,7 +92,6 @@
             display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer;
             box-shadow: 0 4px 10px rgba(211, 84, 0, 0.3); transition: transform 0.1s;
         }
-        .add-btn:active { transform: scale(0.9); }
 
         /* Rozetler */
         .badge { position: absolute; top: 0; left: 0; padding: 3px 8px; font-size: 0.6rem; font-weight: 700; color: #fff; border-bottom-right-radius: 8px; }
@@ -84,22 +99,19 @@
 
         /* --- SEPET BARI --- */
         #cart-bar {
-            position: fixed; bottom: 70px; left: 20px; right: 20px;
+            position: fixed; bottom: 75px; left: 20px; right: 20px;
             background: var(--secondary); color: white;
             padding: 15px; border-radius: 15px;
             display: none; justify-content: space-between; align-items: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 900;
-            animation: slideUp 0.3s ease-out;
         }
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .cart-info span { display: block; font-size: 0.8rem; opacity: 0.8; }
-        .cart-total { font-size: 1.3rem; font-weight: 800; }
-        .reset-btn { background: #e74c3c; color: white; border:none; padding: 8px 12px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; }
+        .cart-total { font-size: 1.2rem; font-weight: 800; }
+        .reset-btn { background: #e74c3c; color: white; border:none; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer; }
 
         /* --- NAV --- */
-        .nav { position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.98); display: flex; justify-content: space-around; padding: 10px; border-top: 1px solid #eee; z-index: 1000; }
-        .nav-item { text-align: center; color: #999; font-size: 0.7rem; text-decoration: none; cursor: pointer; }
-        .nav-item i { font-size: 1.4rem; display: block; margin-bottom: 3px; }
+        .nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px; border-top: 1px solid #eee; z-index: 1000; }
+        .nav-item { text-align: center; color: #999; font-size: 0.7rem; text-decoration: none; font-weight: 600; }
+        .nav-item i { font-size: 1.3rem; display: block; margin-bottom: 4px; }
         .nav-item.active { color: var(--primary); }
     </style>
 </head>
@@ -107,8 +119,8 @@
 
     <div id="home-screen">
         <div class="top-header">
-            <span class="brand-name">Bİ MOLA<br>YENİ NESİL BÜFE LEZZETLERİ</span>
-            <span class="sub-title">Lezzetli Anlar</span>
+            <span class="brand-name">Bi Mola</span>
+            <span class="sub-title">YENİ NESİL BÜFE LEZZETLERİ</span>
         </div>
         <div class="logo-container">
             <img src="logo.png" class="main-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3081/3081093.png'">
@@ -116,7 +128,7 @@
         
         <div class="search-box">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" id="search" class="search-input" placeholder="Canınız ne çekiyor ? (örn : Kaşarlı Gözleme)" onkeyup="searchFunc()">
+            <input type="text" id="search" class="search-input" placeholder="Canınız ne çekiyor?" onkeyup="searchFunc()">
         </div>
 
         <h2 class="section-title">MENÜ KATEGORİLERİ</h2>
@@ -126,32 +138,26 @@
                 <img src="sikma_tost.jpg" class="cat-img" onerror="this.src='logo.png'">
                 <span style="color: var(--primary);">✨ YENİ LEZZETLER</span>
             </div>
-
             <div class="cat-card" onclick="openCat('gozleme')">
                 <img src="gozleme.jpg" class="cat-img">
                 <span>GÖZLEMELER</span>
             </div>
-
             <div class="cat-card" onclick="openCat('ikonik')">
                 <img src="gozleme.jpg" class="cat-img">
                 <span>İKONİK GÖZLEMELER</span>
             </div>
-            
              <div class="cat-card" onclick="openCat('klasik_tost')">
                 <img src="tost.jpg" class="cat-img" onerror="this.src='logo.png'">
                 <span>KLASİK TOSTLAR</span>
             </div>
-
             <div class="cat-card" onclick="openCat('bazlama_tost')">
                 <img src="bazlama_tost.jpg" class="cat-img" onerror="this.src='logo.png'">
                 <span>BAZLAMA TOSTLAR</span>
             </div>
-
             <div class="cat-card" onclick="openCat('gurme_tost')">
                 <img src="tost.jpg" class="cat-img" onerror="this.src='logo.png'">
                 <span>GURME TOSTLAR</span>
             </div>
-
             <div class="cat-card" onclick="openCat('sokak')">
                 <img src="sokak.jpg" class="cat-img" onerror="this.src='logo.png'">
                 <span>SOKAK LEZZETLERİ</span>
