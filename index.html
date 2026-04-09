@@ -48,7 +48,23 @@
         }
 
         .logo-container { display: flex; justify-content: center; margin-bottom: 20px; }
-        .main-logo { width: 140px; height: 140px; border-radius: 50%; border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); background: #fff; object-fit: contain; }
+        .main-logo /* --- LOGO AYARI GÜNCELLENDİ (TAM EKRAN SİYAH) --- */
+        .main-logo { 
+            width: 140px; 
+            height: 140px; 
+            border-radius: 50%; /* Dış şekil hala daire */
+            
+            /* Dışarıdaki beyazlığı ve gölgeyi kaldırıyoruz */
+            border: none; 
+            box-shadow: none; 
+            
+            /* Görselin kendi siyah arka planının sığması için */
+            background-color: #000000; /* Görsel yüklenmezse arkası siyah olsun */
+            object-fit: cover; /* Görseli dairenin içine, yandaki beyazlıklar taşacak şekilde sığdırır */
+            
+            /* Hafif bir derinlik için çok ince, koyu bir gölge (opsiyonel, şık durur) */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
 
         /* --- ARAMA --- */
         .search-box { margin: 0 20px 20px; position: relative; }
