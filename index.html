@@ -156,10 +156,6 @@
         <h2 class="section-title">MENÜ KATEGORİLERİ</h2>
 
         <div class="grid" id="main-grid">
-            <div class="cat-card" onclick="openCat('durum')" style="background: #fff3e0; border: 2px solid #fb8c00;">
-    <img src="sikma.jpg" class="cat-img" onerror="this.src='logo.png'">
-    <span style="color: #fb8c00;">🌯 DÜRÜMLER</span>
-</div>
             <div class="cat-card" onclick="openCat('yeni_lezzetler')" style="background: #fff8e1; border: 2px solid var(--primary);">
                 <img src="sikma_tost.jpg" class="cat-img" onerror="this.src='logo.png'">
                 <span style="color: var(--primary);">✨ YENİ LEZZETLER</span>
@@ -370,37 +366,6 @@
         }
 
         const data = {
-            durum: [
-                {n:"Kaşarlı Domates Soslu Tavuk Dürüm", d:"Sotelenmiş tavuk but, baharatlı rende domates sosu, kaşar, ince kıyım soğan, kıvırcık, tam buğday bazı ekmeğinde.", p:"140.0₺", i:"image_2.png", b:"hot"},
-                {n:"Köz Patlıcanlı Tavuk Dürüm", d:"Sote tavuk but, köz patlıcan, maydanoz, ince kıyım soğan, tuz, biber, tam buğday bazı ekmeğinde.", p:"140.0₺", i:"image_2.png"},
-                {n:"Acı Soslu Mor Soğanlı Tavuk Dürüm", d:"Sote tavuk but, domatesli acı sos, mor soğan dilimleri, yeşil biber, kıvırcık, jalapieno turşu, tam buğday bazı ekmeğinde.", p:"140.0₺", i:"image_2.png"},
-                {n:"Ballı Hardallı Karamelize Soğanlı", d:"Sote tavuk but, bal, hardal, karamelize soğan, kıvırcık, tam buğday bazı ekmeğinde.", p:"140.0₺", i:"image_2.png"},
-                {n:"Çıtır Tavuk Dürüm", d:"Panelenmiş tavuk göğsü, kaşar, kıvırcık, az soğan, cheddar sosu, ketçap, tam buğday bazı ekmeğinde.", p:"140.0₺", i:"image_2.png"}
-            ],
-            sandvic: [
-                {n:"Çıtır Tavuk Sandviç", d:"100 gr sandviç ekmeği, panelenmiş çıtır tavuk, mısır, cheddar sosu, domates, kornişon turşu, ince dilimli soğan, ketçap, mayonez.", p:"140.0₺", i:"sokak.jpg"},
-                {n:"Sucuk Döner", d:"100 gr sandviç ekmeği, yaprak sucuk, kıvırcık, domates, az soğan, ketçap, mayonez yanında.", p:"160.0₺", i:"sokak.jpg"},
-                {n:"Yengen Sucuklu Baget Sandviç", d:"100 gr sandviç ekmeği, bol sucuk, acuka sos, ketçap, mayonez yanında.", p:"150.0₺", i:"sokak.jpg"},
-                {n:"Dilim Sosisli Sandviç", d:"100 gr sandviç ekmeği, dilim sosis, patates, Cheddar sos, ketçap, mayonez.", p:"140.0₺", i:"sokak.jpg"},
-                {n:"Yengen Karışık Baget", d:"100 gr sandviç ekmeği, sucuk, kaşar, patates, acuka sos, ketçap, mayonez yanında.", p:"150.0₺", i:"sokak.jpg"},
-                {n:"Sosisli Patso Sandviç", d:"100 gr sandviç ekmeği, sosis, patates, hardal, ketçap, mayonez.", p:"150.0₺", i:"sokak.jpg"},
-                {n:"Cheddarlı Sucuklu Sandviç", d:"100 gr sandviç ekmeği, bol sucuk, ince kıyım soğan, domates, cheddar sosu, ketçap yanında.", p:"150.0₺", i:"sokak.jpg"},
-                {n:"Atom Sandviç", d:"100 gr sandviç ekmeği, sosis, salam, yumurta, kıvırcık, kaşar, cheddar, patates, kornişon turşu, ketçap, mayonez.", p:"160.0₺", i:"sokak.jpg"},
-                {n:"Et Köfteli Sandviç", d:"100 gr sandviç ekmeği, el yapımı ızgara et köfte, piyaz, kıvırcık, domates, yeşil biber, sumak, pulbiber.", p:"200.0₺", i:"sokak.jpg"},
-                {n:"Kaşarlı Et Köfte", d:"100 gr sandviç ekmeği, el yapımı ızgara et köfte, kaşar, domates, yeşil biber, kıvırcık, baharat.", p:"210.0₺", i:"sokak.jpg"},
-                {n:"Tavuklu Kaşarlı Sandviç", d:"100 gr sandviç ekmeği, sotelenmiş tavuk but, kaşar, domates, yeşil biber, hardal sos, kıvırcık, ketçap yanında.", p:"150.0₺", i:"sokak.jpg"},
-                {n:"Tavuk Köfte Sandviç", d:"100 gr sandviç ekmeği, ızgara tavuk köfte, kaşar, domates, yeşil biber, salatalık, kıvırcık, baharat.", p:"150.0₺", i:"sokak.jpg"},
-                {n:"Ton Balıklı Sandviç", d:"100 gr sandviç ekmeği, ton balığı, patates, kıvırcık, ince dilim soğan, domates, baharat.", p:"150.0₺", i:"sokak.jpg"},
-                {n:"Yumurtalı Lor Peynirli Sandviç", d:"100 gr sandviç ekmeği, haşlanmış yumurta, terbiyeli lor peyniri, kıvırcık, domates, salatalık, yeşil biber, baharat.", p:"140.0₺", i:"sokak.jpg"},
-                {n:"Avokado Sandviç", d:"100 gr sandviç ekmeği, avokado, beyaz peynir, domates, yeşil biber, kıvırcık, kuru kekik, pulbiber.", p:"150.0₺", i:"sokak.jpg", b:"veg"},
-                {n:"Susamlı Pastırmalı Sandviç", d:"100 gr sandviç ekmeği, sucuk, pastırma, sosis, kaşar, hardal sosu, ketçap, mayonez.", p:"180.0₺", i:"sokak.jpg"},
-                {n:"Yumurtalı Kavurmalı Sandviç", d:"100 gr sandviç ekmeği, kavurma, omlet, domates, yeşil biber, kıvırcık, kaşar, pulbiber.", p:"180.0₺", i:"sokak.jpg"},
-                {n:"Peynirli Sandviç", d:"100 gr sandviç ekmeği, beyaz peynir, domates, salatalık, yeşil biber, kıvırcık, salam.", p:"130.0₺", i:"sokak.jpg"},
-                {n:"Duble Peynirli Sandviç", d:"100 gr sandviç ekmeği, beyaz peynir, kaşar peyniri, Antep peyniri, salam, domates, yeşil biber, salatalık, kıvırcık.", p:"160.0₺", i:"sokak.jpg"},
-                {n:"Yumurtalı Pastırmalı Sandviç", d:"100 gr sandviç ekmeği, pastırma, omlet, kaşar, domates, yeşil biber, salatalık, kıvırcık.", p:"180.0₺", i:"sokak.jpg"},
-                {n:"Zeytin Ezmeli Sandviç", d:"100 gr sandviç ekmeği, zeytin ezmesi, beyaz peynir, domates, salatalık, yeşil biber, kıvırcık.", p:"150.0₺", i:"sokak.jpg"},
-                {n:"Ballı Kaymaklı Sandviç", d:"100 gr sandviç ekmeği, bal, kaymak, çikolata, fındık parçacıkları.", p:"170.0₺", i:"sokak.jpg"},
-                {n:"Haşlama Yumurtalı Sandviç", d:"100 gr sandviç ekmeği, iki adet haşlanmış yumurta, beyaz peynir, maydonoz, kıvırcık, salatalık, yeşil biber, pulbiber.", p:"150.0₺", i:"sokak.jpg"}
             yeni_lezzetler: [
                 // Yeni Eklenen Sıkma Tostlar (Görseli: sikma_tost.jpg)
                 {n:"Sıkma Ekmeğinde Kaşarlı Tost", d:"Ketçap, pul biber.", p:"135.0₺", i:"sikma_tost.jpg", b:"new"},
