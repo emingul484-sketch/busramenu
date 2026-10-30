@@ -213,9 +213,13 @@
                 <img src="logo.png" class="cat-img">
                 <span>DİĞER LEZZETLER</span>
             </div>
-            <div class="cat-card" onclick="openCat('icecek')">
-                <img src="icecekler.jpg" class="cat-img">
-                <span>İÇECEKLER</span>
+            <div class="cat-card" onclick="openCat('sicak_icecek')" style="background: #fff8f0; border: 2px solid #e67e22;">
+                <img src="icecekler.jpg" class="cat-img" onerror="this.src='logo.png'">
+                <span style="color: #e67e22;">☕ SICAK İÇECEKLER</span>
+            </div>
+            <div class="cat-card" onclick="openCat('soguk_icecek')" style="background: #e8f4fd; border: 2px solid #1e88e5;">
+                <img src="icecekler.jpg" class="cat-img" onerror="this.src='logo.png'">
+                <span style="color: #1e88e5;">🥤 SOĞUK İÇECEKLER</span>
             </div>
         </div>
     </div>
@@ -280,7 +284,7 @@
         function openCat(cat) {
             document.getElementById('home-screen').style.display = 'none';
             document.getElementById('detail-screen').style.display = 'block';
-            document.getElementById('cat-title').innerText = cat.toUpperCase().replace('_',' ');
+            document.getElementById('cat-title').innerText = (catTitles[cat] || cat.toUpperCase().replace('_',' '));
             
             const list = document.getElementById('item-list');
             list.innerHTML = '';
@@ -307,6 +311,8 @@
                     // Yeni eklenen kategoriler için fallback
                     if (cat === 'yeni_lezzetler') fallbackImg = 'sikma_tost.jpg';
                     if (cat === 'bazlama_tost') fallbackImg = 'bazlama_tost.jpg';
+                    if (cat === 'sicak_icecek' || cat === 'soguk_icecek') fallbackImg = 'icecekler.jpg';
+                    let malzemeHTML = item.malzeme ? `<p style="font-size:0.7rem;color:#999;margin:3px 0 8px;font-style:normal;">🧾 ${item.malzeme}</p>` : '';
 
                     list.innerHTML += `
                     <div class="item">
@@ -315,6 +321,7 @@
                         <div class="item-info">
                             <h3>${item.n}</h3>
                             <p>${item.d}</p>
+                            ${malzemeHTML}
                             <div class="item-footer">
                                 ${priceHTML}
                                 ${addBtnHTML}
@@ -370,6 +377,8 @@
             }
         }
 
+        const catTitles = { sicak_icecek: 'SICAK İÇECEKLER', soguk_icecek: 'SOĞUK İÇECEKLER', durum: 'DÜRÜMLER', sandvic: 'SANDVİÇLER' };
+
         const data = {
             sandvic: [
                 {n:"Çıtır Tavuk Sandviç", d:"100 gr sandviç ekmeği, panelenmiş çıtır tavuk, mısır, cheddar sosu, domates, kornişon turşu, ince dilimli soğan, ketçap, mayonez.", p:"150.0₺", i:"image_7fe206.png"},
@@ -392,7 +401,8 @@
                 {n:"Et Döner", d:"", p:"200.0₺", i:"image_7fe1c6.png"},
                 {n:"Kaşarlı Et Döner", d:"", p:"220.0₺", i:"image_7fe1c6.png"},
                 {n:"Cheddarlı Et Döner", d:"", p:"220.0₺", i:"image_7fe1c6.png"},
-                {n:"Karışık Kızartma Dürümü", d:"", p:"130.0₺", i:"image_7fe1c6.png"}
+                {n:"Karışık Kızartma Dürümü", d:"", p:"130.0₺", i:"image_7fe1c6.png"},
+                {n:"Tavuk Sarma", d:"Patates kızartması ve sos ile servis edilir.", p:"", i:"image_7fe1c6.png", b:"new", malzeme:"Tavuk göğsü, Kaşar, Mantar, Soğan, Biber, Ketçap, Toz biber, Kekik, Köri"}
             ],
             yeni_lezzetler: [
                 // Yeni Eklenen Sıkma Tostlar (Görseli: sikma_tost.jpg)
@@ -554,11 +564,19 @@
                 {n:"Köy Katmeri", d:"Kaymak, şeker, fıstık, tereyağı.", p:"320.0₺", i:"tatli.jpg", b:"chef"},
                 {n:"Redbull Gözleme", d:"Fıstık ezmesi, kaymak, çikolata, bal, çekilmiş fıstık, yer fıstığı.", p:"360.0₺", i:"gozleme.jpg"}
             ],
-            icecek: [
+            sicak_icecek: [
                 {n:"Çay", d:"", p:"20.0₺", i:"cay.jpg"},
                 {n:"Duble Çay", d:"", p:"35.0₺", i:"fincan_cay.jpg"},
                 {n:"Nescafe", d:"", p:"50.0₺", i:"nescafe.jpg"},
                 {n:"Türk Kahvesi", d:"", p:"70.0₺", i:"turk_kahvesi.jpg"},
+                {n:"Espresso", d:"", p:"", i:"icecekler.jpg", b:"new"},
+                {n:"Americano", d:"", p:"", i:"icecekler.jpg", b:"new"},
+                {n:"Cappuccino", d:"", p:"", i:"icecekler.jpg", b:"new"},
+                {n:"Latte Macchiato", d:"", p:"", i:"icecekler.jpg", b:"new"},
+                {n:"Filtre Kahve", d:"", p:"", i:"icecekler.jpg", b:"new"},
+                {n:"Sütlü Filtre Kahve", d:"", p:"", i:"icecekler.jpg", b:"new"}
+            ],
+            soguk_icecek: [
                 {n:"Cola (330ml)", d:"", p:"60.0₺", i:"cola.jpg"},
                 {n:"Fanta (330ml)", d:"", p:"60.0₺", i:"fanta.jpg"},
                 {n:"Soğuk Çay (330ml)", d:"", p:"60.0₺", i:"ice_tea.jpg"},
@@ -584,6 +602,7 @@
             ]
         };
     </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"f0f03d0605bf45f1a3b17cf7d5e6861f","spa":2}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"f0f03d0605bf45f1a3b17cf7d5e6861f","spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
